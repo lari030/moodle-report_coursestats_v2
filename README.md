@@ -1,2 +1,0 @@
-# Plugin Course Stats V2
-Plugin do tipo relatório para estatísticas de curso em sua segunda versão, com algumas modificações, como a que permite a criação de categorias próprias.
