@@ -23,5 +23,5 @@
 $string['pluginname'] = 'Estatísticas de Utilização de Cursos V2';
 $string['heading'] = 'Funciona!';
 $string['coursestatsv2_settings'] = '[Configurações]Estatísticas de Utilização de Cursos V2';
-$string['catnamechanger_text'] = 'Enter the custom category names:';
+$string['catnamechanger_text'] = 'Digite os nomes das categorias customizadas:';
 
