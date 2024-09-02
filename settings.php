@@ -36,7 +36,7 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configtextarea(
         'report_coursestats_v2/customcatnames',
-        get_string('catnamechanger_text', 'report_catnamechanger'),
+        get_string('catnamechanger_text', 'report_coursestats_v2'),
         '',
         '',
         PARAM_RAW,
