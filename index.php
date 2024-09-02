@@ -25,6 +25,15 @@ require_once($CFG->libdir.'/adminlib.php');
 
 admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout'=>'report'));
 
+$customcatnames = get_config('report_coursestats_v2', 'customcatnames');
+
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('heading', 'report_coursestats_v2'));
+echo $OUTPUT->heading(get_string('heading',  'report_coursestats_v2'));
+
+if(!empty($customcatnames)) {
+  echo format_text($customcatnames, FORMAT_HTML);
+} else {
+  echo $OUTPUT -> notification('No custom category names have been set.', 'notifymessage');
+}
+
 echo $OUTPUT->footer();

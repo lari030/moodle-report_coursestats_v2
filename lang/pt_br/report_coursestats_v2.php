@@ -20,5 +20,8 @@
  * @copyright  2019 Paulo Jr
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'Estatísticas de Utilização de Curso V2';
+$string['pluginname'] = 'Estatísticas de Utilização de Cursos V2';
 $string['heading'] = 'Funciona!';
+$string['coursestatsv2_settings'] = '[Configurações]Estatísticas de Utilização de Cursos V2';
+$string['catnamechanger_text'] = 'Enter the custom category names:';
+

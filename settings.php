@@ -20,7 +20,29 @@
  * @copyright  2019 Paulo Jr
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$ADMIN->add('reports', new admin_externalpage('reportcoursestatsv2', get_string('pluginname', 'report_coursestats_v2'), "$CFG->wwwroot/report/coursestats_v2/index.php"));
-$settings = null;
+if ($hassiteconfig) {
+    // Adiciona o link para o relatório na seção de Relatórios.
+    $ADMIN->add('reports', new admin_externalpage(
+        'reportcoursestatsv2',
+        get_string('pluginname', 'report_coursestats_v2'),
+        "$CFG->wwwroot/report/coursestats_v2/index.php",
+        'moodle/site:config'
+    ));
+
+    // Adiciona a configuração do plugin.
+    $settings = new admin_settingpage('report_coursestats_v2', get_string('coursestatsv2_settings', 'report_coursestats_v2'));
+
+    $settings->add(new admin_setting_configtextarea(
+        'report_coursestats_v2/customcatnames',
+        get_string('catnamechanger_text', 'report_catnamechanger'),
+        '',
+        '',
+        PARAM_RAW,
+        60,
+        10
+    ));
+
+    $ADMIN->add('reports', $settings);
+}
