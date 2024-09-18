@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<xmldb>
+<XMLDB PATH="report/coursestats_v2/db" VERSION="20171007" COMMENT="XMLDB file for Moodle report/coursestats_v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
     <TABLES>
         <!-- Tabela report_coursestats_categories -->
         <TABLE NAME="report_coursestats_categories" COMMENT="Tabela para armazenar categorias de estatísticas dos cursos">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -17,13 +19,13 @@
         <TABLE NAME="report_coursestats_courses" COMMENT="Tabela para armazenar cursos e associar às categorias de estatísticas">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
-                <FIELD NAME="coursestats_category_id" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="coursestats_category_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-                <KEY NAME="foreign" TYPE="foreign" FIELDS="coursestats_category_id" REFTABLE="report_coursestats_categories" REFFIELDS="id" ONDELETE="cascade"/>
+                <KEY NAME="foreign" TYPE="foreign" FIELDS="coursestats_category_id" REFTABLE="report_coursestats_categories" REFFIELDS="id" />
             </KEYS>
         </TABLE>
     </TABLES>
-</xmldb>
+</XMLDB>
