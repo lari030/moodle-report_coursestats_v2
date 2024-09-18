@@ -19,7 +19,7 @@
         <TABLE NAME="report_coursestats_courses" COMMENT="Tabela para armazenar cursos e associar às categorias de estatísticas">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="coursestats_category_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
             </FIELDS>
             <KEYS>
