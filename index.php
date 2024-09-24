@@ -36,4 +36,5 @@ if(!empty($customcatnames)) {
   echo $OUTPUT -> notification('No custom category names have been set.', 'notifymessage');
 }
 
+require_once('tabela.php');
 echo $OUTPUT->footer();

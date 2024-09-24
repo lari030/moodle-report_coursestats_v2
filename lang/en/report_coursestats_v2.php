@@ -24,6 +24,9 @@ $string['pluginname'] = 'Report Course Stats V2';
 $string['heading'] = 'It works!';
 $string['coursestatsv2_settings'] = '[Settings]Report Course Stats V2';
 $string['catnamechanger_text'] = 'Enter the custom category names:';
+$string['category'] = 'Category';
+$string['coursecount'] = 'Number of Courses Created';
+$string['nocategories'] = 'No categories found';
 
 
 
