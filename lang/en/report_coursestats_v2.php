@@ -25,8 +25,16 @@ $string['heading'] = 'It works!';
 $string['coursestatsv2_settings'] = '[Settings]Report Course Stats V2';
 $string['catnamechanger_text'] = 'Enter the custom category names:';
 $string['category'] = 'Category';
-$string['coursecount'] = 'Number of Courses Created';
-$string['nocategories'] = 'No categories found';
+$string['coursescreated'] = 'Number of Courses Created';
+$string['coursesused'] = 'Courses Used';
+$string['usagerate'] = 'Usage Rate';
+$string['categorydetails'] = 'Category Details';
+$string['backtocategories'] = 'Back';
+$string['usagetype'] = 'Usage Type';
+$string['roomcount'] = 'Room Count';
+$string['percentage'] = 'Percentage';
+$string['modules'] = 'Module';
+
 
 
 

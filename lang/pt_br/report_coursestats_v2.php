@@ -25,6 +25,13 @@ $string['heading'] = 'Funciona!';
 $string['coursestatsv2_settings'] = '[Configurações]Estatísticas de Utilização de Cursos V2';
 $string['catnamechanger_text'] = 'Digite os nomes das categorias customizadas:';
 $string['category'] = 'Categoria';
-$string['coursecount'] = 'Quantidade de Cursos Criados';
-$string['nocategories'] = 'Não há categorias';
+$string['coursescreated'] = 'Quantidade de Cursos Criados';
+$string['coursesused'] = 'Quantidade de Cursos Utilizados';
+$string['usagerate'] = 'Taxa de Utilização';
+$string['categorydetails'] = 'Detalhes da Categoria';
+$string['backtocategories'] = 'Voltar';
+$string['usagetype'] = 'Tipo de Uso';
+$string['roomcount'] = 'Quantidade de Salas';
+$string['percentage'] = 'Porcentagem';
+$string['modules'] = 'Módulo';
 
