@@ -20,21 +20,31 @@
  * @copyright  2019 Paulo Jr
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require(__DIR__.'/../../config.php');
-require_once($CFG->libdir.'/adminlib.php');
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/mapper.php');
+require_once($CFG->libdir . '/adminlib.php');
+//require_once($CFG->dirroot . '/report/coursestats_v2/mapper.php');
 
-admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout'=>'report'));
+
+//função principal que vai processar a entrada
+
+
+admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout' => 'report'));
 
 $customcatnames = get_config('report_coursestats_v2', 'customcatnames');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('heading',  'report_coursestats_v2'));
+//echo $OUTPUT->heading(get_string('heading',  'report_coursestats_v2'));
 
-if(!empty($customcatnames)) {
-  echo format_text($customcatnames, FORMAT_HTML);
+
+if (!empty($customcatnames)) {
+  $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
+  $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
+  processarConfiguracao($customcatnames);
+  echo "Feito!!!";
 } else {
-  echo $OUTPUT -> notification('No custom category names have been set.', 'notifymessage');
+  //echo $OUTPUT->notification('No custom category names have been set.', 'notifymessage');
+  $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
 }
 
-require_once('table_categories.php');
 echo $OUTPUT->footer();
