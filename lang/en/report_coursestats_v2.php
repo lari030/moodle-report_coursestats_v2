@@ -20,18 +20,18 @@
  * @copyright  2019 Paulo Jr
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'Report Course Stats V2';
+$string['pluginname'] = 'Course Usage Statistics - v2';
 $string['heading'] = 'It works!';
-$string['coursestatsv2_settings'] = '[Settings]Report Course Stats V2';
-$string['catnamechanger_text'] = 'Enter the custom category names:';
+$string['coursestatsv2_settings'] = '[Settings] Course Usage Statistics - v2';
+$string['catnamechanger_text'] = 'Categories and courses mapping data:';
 $string['category'] = 'Category';
-$string['coursescreated'] = 'Number of Courses Created';
-$string['coursesused'] = 'Courses Used';
-$string['usagerate'] = 'Usage Rate';
-$string['categorydetails'] = 'Category Details';
+$string['coursescreated'] = 'Amount of created courses';
+$string['coursesused'] = 'Amount of used courses';
+$string['usagerate'] = 'Usage rate';
+$string['categorydetails'] = 'Details';
 $string['backtocategories'] = 'Back';
-$string['usagetype'] = 'Usage Type';
-$string['roomcount'] = 'Room Count';
+$string['usagetype'] = 'Usage type';
+$string['roomcount'] = 'Couses amount';
 $string['percentage'] = 'Percentage';
 $string['modules'] = 'Module';
 

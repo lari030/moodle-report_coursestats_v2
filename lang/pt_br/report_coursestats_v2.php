@@ -20,18 +20,18 @@
  * @copyright  2019 Paulo Jr
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'Estatísticas de Utilização de Cursos V2';
+$string['pluginname'] = 'Estatísticas de Utilização de Cursos - v2';
 $string['heading'] = 'Funciona!';
-$string['coursestatsv2_settings'] = '[Configurações]Estatísticas de Utilização de Cursos V2';
-$string['catnamechanger_text'] = 'Digite os nomes das categorias customizadas:';
+$string['coursestatsv2_settings'] = '[Configurações] Estatísticas de Utilização de Cursos - v2';
+$string['catnamechanger_text'] = 'Dados para mapeamento de categorias e cursos:';
 $string['category'] = 'Categoria';
-$string['coursescreated'] = 'Quantidade de Cursos Criados';
-$string['coursesused'] = 'Quantidade de Cursos Utilizados';
-$string['usagerate'] = 'Taxa de Utilização';
-$string['categorydetails'] = 'Detalhes da Categoria';
+$string['coursescreated'] = 'Quantidade de cursos criados';
+$string['coursesused'] = 'Quantidade de cursos utilizados';
+$string['usagerate'] = 'Taxa de utilização';
+$string['categorydetails'] = 'Detalhes';
 $string['backtocategories'] = 'Voltar';
-$string['usagetype'] = 'Tipo de Uso';
-$string['roomcount'] = 'Quantidade de Salas';
+$string['usagetype'] = 'Tipo de uso';
+$string['roomcount'] = 'Quantidade de cursos';
 $string['percentage'] = 'Porcentagem';
 $string['modules'] = 'Módulo';
 
