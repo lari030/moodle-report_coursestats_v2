@@ -40,7 +40,7 @@ echo $OUTPUT->header();
 if (!empty($customcatnames)) {
   $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
   $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
-  processCustomConfig($customcatnames);
+  processarConfiguracao($customcatnames); // mudar nome da função para processCustomConfig
   echo "Feito: configuração customizada!!!";
 } else {
   //echo $OUTPUT->notification('No custom category names have been set.', 'notifymessage');
