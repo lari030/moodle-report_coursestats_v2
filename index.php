@@ -40,11 +40,14 @@ echo $OUTPUT->header();
 if (!empty($customcatnames)) {
   $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
   $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
-  processarConfiguracao($customcatnames);
-  echo "Feito!!!";
+  processCustomConfig($customcatnames);
+  echo "Feito: configuração customizada!!!";
 } else {
   //echo $OUTPUT->notification('No custom category names have been set.', 'notifymessage');
   $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
+  $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
+  // processMoodleConfig()
+  echo "Feito: configuração do Moodle!!!";
 }
 
 echo $OUTPUT->footer();
