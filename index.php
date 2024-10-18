@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Report main page
- *
- * @package    report
- * @copyright  2019 Paulo Jr
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* Report settings
+*
+* @package    report
+* @copyright  2024 CAPES/UFLA
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
+
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/mapper.php');
 require_once($CFG->libdir . '/adminlib.php');

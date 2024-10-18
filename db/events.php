@@ -13,15 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * Forum event handler definition.
- *
- * @package report
- * @subpackage report_coursesstats
- * @copyright 2017 Paulo Jr.
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* Report settings
+*
+* @package    report
+* @copyright  2024 CAPES/UFLA
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 // List of observers.
 $observers = array(

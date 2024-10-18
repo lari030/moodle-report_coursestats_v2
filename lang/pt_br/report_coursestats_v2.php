@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Strings for component, language 'pt_br'
- *
- * @package    report
- * @copyright  2019 Paulo Jr
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* Report settings
+*
+* @package    report
+* @copyright  2024 CAPES/UFLA
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
+
 $string['pluginname'] = 'Estatísticas de Utilização de Cursos - v2';
 $string['heading'] = 'Funciona!';
 $string['coursestatsv2_settings'] = '[Configurações] Estatísticas de Utilização de Cursos - v2';
