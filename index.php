@@ -51,4 +51,6 @@ if (!empty($customcatnames)) {
   echo "Feito: configuração do Moodle!!!";
 }
 
+require_once('table_categories.php');
+
 echo $OUTPUT->footer();

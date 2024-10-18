@@ -61,21 +61,4 @@ foreach ($categories as $category) {
 
 // Retorna a tabela gerada
 echo html_writer::table($table);
-// Preenchendo as linhas da tabela com os dados reais
-foreach ($categories as $category) {
-    $link = html_writer::link(
-        new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $category->id]),
-        format_string($category->categoryname)
-    );
 
-    // Valores fictícios
-    $table->data[] = [
-        $link,                   // Nome da Categoria com link para a página de detalhes
-        $category->coursecount,   // Quantidade de Cursos Criados
-        '-',                     // Quantidade de Cursos Utilizados (a ser implementado)
-        '-'                      // Taxa de Utilização (a ser implementado)
-    ];
-}
-
-// Retorna a tabela gerada
-echo html_writer::table($table);
