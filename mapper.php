@@ -14,165 +14,197 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
-* Report settings
-*
-* @package    report
-* @copyright  2024 CAPES/UFLA
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * Report settings
+ *
+ * @package    report
+ * @copyright  2024 CAPES/UFLA
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-
-function processarConfiguracao($configuracao)
+function processCustomConfig($configuration)
 {
-  //faz a instância do banco de dados ser global para poder ser em qualquer parte da função
-  global $DB;
-  global $id;
-  //aqui separamos a quebra de linha em um array, para isso que serve a função explode
-  $linhas = explode("\n", trim($configuracao));
+    // Make the database instance global to use it anywhere in the function
+    global $DB;
+    global $id;
 
-  //váriavel para se guardar a categoria atual do qual vai ser buscada os cursos no banco de dados
-  $categoriaAtual = '';
+    // Split the new lines into an array, the explode function is used for this
+    $lines = explode("\n", trim($configuration));
 
-  //foreach para processar cada uma das linhas
-  foreach ($linhas as $linha) {
-    //a função trim serve para se retirar os espaços do começo e final da linha
-    $linha = trim($linha);
+    // Variable to store the current category from which courses will be fetched from the database
+    $currentCategory = '';
 
-    //verificação para se definir se se trata de uma categoria ou de um filtro dos cursos que serão buscados
-    if (strpos($linha, ':') !== false && trim(substr($linha, strpos($linha, ':') + 1)) === '') {
-      $categoriaAtual = rtrim($linha, ':');
-      $categoria = new stdClass();
-      $categoria->name = $categoriaAtual;
-      $id = $DB->insert_record('report_coursestats_categories', $categoria);
-      
-    } elseif (strpos($linha, ':') !== false) {
-      //função list atribui a cada váriavel um valor do array passado
-      list($codigo, $filtros) = explode(':', $linha);
-      $codigo = trim($codigo);
-      $filtros = trim($filtros);
+    // foreach to process each of the lines
+    foreach ($lines as $line) {
+        // The trim function removes spaces from the beginning and end of the line
+        $line = trim($line);
 
-      //verifica se está sendo pedido para adcionar todos os cursos
-      if ($filtros == '*') {
-        //busca no banco de dados todos os cursos
-        $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo";
-        $params = ['codigo' => $codigo];
-        $cursos = $DB->get_records_sql($query, $params);
-        foreach ($cursos as $curso) {
-          $curso_add = new stdClass();
-          $curso_add->name = $curso->fullname;
-          $curso_add->coursestats_category_id = $id;
-          $DB->insert_record('report_coursestats_courses', $curso_add);
+        // Check to determine if it is a category or a filter for the courses to be fetched
+        if (strpos($line, ':') !== false && trim(substr($line, strpos($line, ':') + 1)) === '') {
+            $currentCategory = rtrim($line, ':');
+            $category = new stdClass();
+            $category->name = $currentCategory;
+            $id = $DB->insert_record('report_coursestats_categories', $category);
+        } elseif (strpos($line, ':') !== false) {
+            // The list function assigns each variable a value from the passed array
+            list($code, $filters) = explode(':', $line);
+            $code = trim($code);
+            $filters = trim($filters);
+
+            // Check if all courses are requested
+            if ($filters == '*') {
+                // Fetch all courses from the database
+                $courses = $DB->get_records('course');
+                foreach ($courses as $course) {
+                    $course_add = new stdClass();
+                    $course_add->name = $course->fullname;
+                    $course_add->coursestats_category_id = $id;
+                    $DB->insert_record('report_coursestats_courses', $course_add);
+                }
+            }
+            // Check if there are multiple filter configurations to search in the database
+            elseif (strpos($filters, ',') !== false) {
+                $courses = explode(',', $filters);
+                foreach ($courses as $course) {
+                    $course = trim($course);
+
+                    // Check if the filter wants to get courses that have a specific name
+                    if (strpos($course, '%') !== false) {
+                        // Fetch courses containing a specific name
+                        if (strpos($course, '%') === 0 && strrpos($course, '%') === strlen($course) - 1) {
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $params = ['code' => $code, 'course' => $course];
+                            $results = $DB->get_records_sql($query, $params);
+                            foreach ($results as $result) {
+                                $course_add = new stdClass();
+                                $course_add->name = $result->fullname;
+                                $course_add->coursestats_category_id = $id;
+                                $DB->insert_record('report_coursestats_courses', $course_add);
+                            }
+                            // Fetch courses that end with a specific name
+                        } elseif (strpos($course, '%') === 0) {
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $params = ['code' => $code, 'course' => $course];
+                            $results = $DB->get_records_sql($query, $params);
+                            foreach ($results as $result) {
+                                $course_add = new stdClass();
+                                $course_add->name = $result->fullname;
+                                $course_add->coursestats_category_id = $id;
+                                $DB->insert_record('report_coursestats_courses', $course_add);
+                            }
+                            // Fetch courses that start with a specific name
+                        } elseif (strrpos($course, '%') === strlen($course) - 1) {
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $params = ['code' => $code, 'course' => $course];
+                            $results = $DB->get_records_sql($query, $params);
+                            foreach ($results as $result) {
+                                $course_add = new stdClass();
+                                $course_add->name = $result->fullname;
+                                $course_add->coursestats_category_id = $id;
+                                $DB->insert_record('report_coursestats_courses', $course_add);
+                            }
+                        }
+                    }
+                    // Fetch a specific course
+                    else {
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $params = ['code' => $code, 'course' => $course];
+                        $result = $DB->get_record_sql($query, $params);
+                        if ($result) { // Check if result exists before accessing properties
+                            $course_add = new stdClass();
+                            $course_add->name = $result->fullname;
+                            $course_add->coursestats_category_id = $id;
+                            $DB->insert_record('report_coursestats_courses', $course_add);
+                        }
+                    }
+                }
+            }
+            // Perform the same actions as when there are multiple filter configurations but without needing to iterate through an array
+            else {
+                if (strpos($filters, '%') !== false) {
+                    $course = $filters;
+                    $course = trim($course);
+                    if (strpos($filters, '%') === 0 && strrpos($filters, '%') === strlen($filters) - 1) {
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $params = ['code' => $code, 'course' => $course];
+                        $results = $DB->get_records_sql($query, $params);
+                        foreach ($results as $result) {
+                            $course_add = new stdClass();
+                            $course_add->name = $result->fullname;
+                            $course_add->coursestats_category_id = $id;
+                            $DB->insert_record('report_coursestats_courses', $course_add);
+                        }
+                    } elseif (strpos($filters, '%') === 0) {
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $params = ['code' => $code, 'course' => $course];
+                        $results = $DB->get_records_sql($query, $params);
+                        foreach ($results as $result) {
+                            $course_add = new stdClass();
+                            $course_add->name = $result->fullname;
+                            $course_add->coursestats_category_id = $id;
+                            $DB->insert_record('report_coursestats_courses', $course_add);
+                        }
+                    } elseif (strrpos($filters, '%') === strlen($filters) - 1) {
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $params = ['code' => $code, 'course' => $course];
+                        $results = $DB->get_records_sql($query, $params);
+                        foreach ($results as $result) {
+                            $course_add = new stdClass();
+                            $course_add->name = $result->fullname;
+                            $course_add->coursestats_category_id = $id;
+                            $DB->insert_record('report_coursestats_courses', $course_add);
+                        }
+                    }
+                } else {
+                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :filters";
+                    $params = ['code' => $code, 'filters' => $filters];
+                    $result = $DB->get_records_sql($query, $params);
+                    if ($result) { // Check if result exists before accessing properties
+                        $course_add = new stdClass();
+                        $course_add->name = $result->fullname;
+                        $course_add->coursestats_category_id = $id;
+                        $DB->insert_record('report_coursestats_courses', $course_add);
+                    }
+                }
+            }
         }
-      }
-      //verifica se existe mais de uma configuração de filtro para se buscar no banco de dados
-      elseif (strpos($filtros, ',') !== false) {
-        $cursos = explode(',', $filtros);
-        foreach ($cursos as $curso) {
-          $curso = trim($curso);
-
-          //verifica se o filtro deseja pegar cursos que tenham algum nome especifico
-          if (strpos($curso, '%') !== false) {
-            //busca por cursos que contenham com algum nome especifico
-            if (strpos($curso, '%') === 0 && strrpos($curso, '%') === strlen($curso) - 1) {
-              $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-              $params = ['codigo' => $codigo, 'curso' => $curso];
-              $resultados = $DB->get_records_sql($query, $params);
-              foreach ($resultados as $resultado) {
-                $curso_add = new stdClass();
-                $curso_add->name = $resultado->fullname;
-                $curso_add->coursestats_category_id = $id;
-                $DB->insert_record('report_coursestats_courses', $curso_add); 
-              }
-              //busca por cursos que terminam com algum nome especifico
-            } elseif (strpos($curso, '%') === 0) {
-              $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-              $params = ['codigo' => $codigo, 'curso' => $curso];
-              $resultados = $DB->get_records_sql($query, $params);
-              foreach ($resultados as $resultado) {
-                $curso_add = new stdClass();
-                $curso_add->name = $resultado->fullname;
-                $curso_add->coursestats_category_id = $id;
-                $DB->insert_record('report_coursestats_courses', $curso_add);
-              }
-              //busca por cursos que começam com algum nome especifico
-            } elseif (strrpos($curso, '%') === strlen($curso) - 1) {
-              $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-              $params = ['codigo' => $codigo, 'curso' => $curso];
-              $resultados = $DB->get_records_sql($query, $params);
-
-              foreach ($resultados as $resultado) {
-                $curso_add = new stdClass();
-                $curso_add->name = $resultado->fullname;
-                $curso_add->coursestats_category_id = $id;
-                $DB->insert_record('report_coursestats_courses', $curso_add);
-              }
-            }
-          }
-          //busca por um curso especifico
-          else {
-            $query = "SELECT fullname FROM {course} WHERE visible = 1 and category = :codigo and shortname = :curso";
-            $params = ['codigo' => $codigo, 'curso' => $curso];
-            $resultado = $DB->get_record_sql($query, $params);
-            $curso_add = new stdClass();
-            $curso_add->name = $resultado->fullname;
-            $curso_add->coursestats_category_id = $id;
-            $DB->insert_record('report_coursestats_courses', $curso_add);
-            
-          }
-        }
-      }
-      //faz as mesmas coisas de quando se tem mais de uma configuração no filtro mas sem precisar percorrer um vetor por ser apenas uma configuração de filtro
-      else {
-        if (strpos($filtros, '%') !== false) {
-          $curso = $filtros;
-          $curso = trim($curso);
-          if (strpos($filtros, '%') === 0 && strrpos($filtros, '%') === strlen($filtros) - 1) {
-            $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-            $params = ['codigo' => $codigo, 'curso' => $curso];
-            $resultados = $DB->get_records_sql($query, $params);
-            foreach ($resultados as $resultado){
-              $curso_add = new stdClass();
-              $curso_add->name = $resultado->fullname;
-              $curso_add->coursestats_category_id = $id;
-              $DB->insert_record('report_coursestats_courses', $curso_add);
-            }
-            
-          } elseif (strpos($filtros, '%') === 0) {
-            $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-            $params = ['codigo' => $codigo, 'curso' => $curso];
-            $resultados = $DB->get_records_sql($query, $params);
-            foreach ($resultados as $resultado){
-              $curso_add = new stdClass();
-              $curso_add->name = $resultado->fullname;
-              $curso_add->coursestats_category_id = $id;
-              $DB->insert_record('report_coursestats_courses', $curso_add);
-            }
-
-          } elseif (strrpos($filtros, '%') === strlen($filtros) - 1) {
-            $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname LIKE :curso";
-            $params = ['codigo' => $codigo, 'curso' => $curso];
-            $resultados = $DB->get_records_sql($query, $params);
-            foreach ($resultados as $resultado){
-              $curso_add = new stdClass();
-              $curso_add->name = $resultado->fullname;
-              $curso_add->coursestats_category_id = $id;
-              $DB->insert_record('report_coursestats_courses', $curso_add);
-            }
-            
-          }
-        } else {
-          $query = "SELECT fullname FROM {course} WHERE  visible = 1 and category = :codigo and shortname = :filtros";
-          $params = ['codigo' => $codigo, 'filtros' => $filtros];
-          $resultado = $DB->get_record_sql($query, $params);
-          $curso_add = new stdClass();
-          $curso_add->name = $resultado->fullname;
-          $curso_add->coursestats_category_id = $id;
-          $DB->insert_record('report_coursestats_courses', $curso_add);
-          
-        }
-      }
     }
-  }
 }
 
-?>
+
+
+function processMoodleConfig()
+{
+    global $DB; // Access the global database object
+
+    // Query to select all visible course categories
+    $query = "SELECT id, name FROM {course_categories} WHERE visible = 1";
+    // Execute the query and retrieve the records
+    $categories = $DB->get_records_sql($query);
+
+    // Iterate through each category
+    foreach ($categories as $category) {
+        // Create a new object to hold category information for the report
+        $category_add = new stdClass();
+        $category_add->name = $category->name; // Assign the name of the category
+
+        // Insert the category into the report_coursestats_categories table and get the new ID
+        $id = $DB->insert_record('report_coursestats_categories', $category_add);
+
+        // Query to select all visible courses within the current category
+        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :codigo";
+        $params = ['codigo' => $category->id]; // Bind the category ID to the query
+        // Execute the query to retrieve the courses
+        $results = $DB->get_records_sql($query, $params);
+
+        // Iterate through each course in the results
+        foreach ($results as $result) {
+            // Create a new object to hold course information for the report
+            $curse_add = new stdClass();
+            $curse_add->name = $result->fullname; // Assign the full name of the course
+            $curse_add->coursestats_category_id = $id; // Link the course to its corresponding category ID in the report table
+
+            // Insert the course information into the report_coursestats_courses table
+            $DB->insert_record('report_coursestats_courses', $curse_add);
+        }
+    }
+}

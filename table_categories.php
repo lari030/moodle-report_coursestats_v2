@@ -21,6 +21,14 @@
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
+require(__DIR__ . '/../../config.php');
+require_once($CFG->libdir . '/adminlib.php');
+
+
+admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout' => 'report'));
+
+
+echo $OUTPUT->header();
 
 // Certifique-se de que este arquivo não seja acessado diretamente
 defined('MOODLE_INTERNAL') || die();
@@ -61,4 +69,6 @@ foreach ($categories as $category) {
 
 // Retorna a tabela gerada
 echo html_writer::table($table);
+
+echo $OUTPUT->footer();
 
