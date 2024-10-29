@@ -56,7 +56,8 @@ function processCustomConfig($configuration)
                 $courses = $DB->get_records('course');
                 foreach ($courses as $course) {
                     $course_add = new stdClass();
-                    $course_add->name = $course->fullname;
+                    $course_add->name = $course->shortname;
+                    $course_add->courseid = $course->id;
                     $course_add->coursestats_category_id = $id;
                     $DB->insert_record('report_coursestats_courses', $course_add);
                 }
@@ -76,7 +77,8 @@ function processCustomConfig($configuration)
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
                                 $course_add = new stdClass();
-                                $course_add->name = $result->fullname;
+                                $course_add->name = $result->shortname;
+                                $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestats_courses', $course_add);
                             }
@@ -87,7 +89,8 @@ function processCustomConfig($configuration)
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
                                 $course_add = new stdClass();
-                                $course_add->name = $result->fullname;
+                                $course_add->name = $result->shortname;
+                                $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestats_courses', $course_add);
                             }
@@ -98,7 +101,8 @@ function processCustomConfig($configuration)
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
                                 $course_add = new stdClass();
-                                $course_add->name = $result->fullname;
+                                $course_add->name = $result->shortname;
+                                $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestats_courses', $course_add);
                             }
@@ -111,7 +115,8 @@ function processCustomConfig($configuration)
                         $result = $DB->get_record_sql($query, $params);
                         if ($result) { // Check if result exists before accessing properties
                             $course_add = new stdClass();
-                            $course_add->name = $result->fullname;
+                            $course_add->name = $result->shortname;
+                            $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestats_courses', $course_add);
                         }
@@ -129,7 +134,8 @@ function processCustomConfig($configuration)
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
                             $course_add = new stdClass();
-                            $course_add->name = $result->fullname;
+                            $course_add->name = $result->shortname;
+                            $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestats_courses', $course_add);
                         }
@@ -139,7 +145,8 @@ function processCustomConfig($configuration)
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
                             $course_add = new stdClass();
-                            $course_add->name = $result->fullname;
+                            $course_add->name = $result->shortname;
+                            $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestats_courses', $course_add);
                         }
@@ -149,7 +156,8 @@ function processCustomConfig($configuration)
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
                             $course_add = new stdClass();
-                            $course_add->name = $result->fullname;
+                            $course_add->name = $result->shortname;
+                            $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestats_courses', $course_add);
                         }
@@ -160,7 +168,8 @@ function processCustomConfig($configuration)
                     $result = $DB->get_records_sql($query, $params);
                     if ($result) { // Check if result exists before accessing properties
                         $course_add = new stdClass();
-                        $course_add->name = $result->fullname;
+                        $course_add->name = $result->shortname;
+                        $course_add->courseid = $result->id;
                         $course_add->coursestats_category_id = $id;
                         $DB->insert_record('report_coursestats_courses', $course_add);
                     }
@@ -200,7 +209,8 @@ function processMoodleConfig()
         foreach ($results as $result) {
             // Create a new object to hold course information for the report
             $curse_add = new stdClass();
-            $curse_add->name = $result->fullname; // Assign the full name of the course
+            $curse_add->name = $result->shortname; // Assign the short name of the course
+            $curse_add->courseid = $result->id;    // Assign the id of the course on the original Moodle table
             $curse_add->coursestats_category_id = $id; // Link the course to its corresponding category ID in the report table
 
             // Insert the course information into the report_coursestats_courses table
