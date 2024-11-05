@@ -53,17 +53,29 @@ $table->head = [
 
 // Preenchendo as linhas da tabela com os dados reais
 foreach ($categories as $category) {
+
+    // Consulta para obter a quantidade de cursos utilizados na categoria
+    $used_courses_sql = "SELECT COUNT(*)
+                         FROM {report_coursestats_courses} rcc
+                         JOIN {report_coursestats} rc ON rcc.courseid = rc.courseid
+                         WHERE rcc.coursestats_category_id = :categoryid";
+    $used_course_count = $DB->count_records_sql($used_courses_sql, ['categoryid' => $category->id]);
+
+    // Calculando a taxa de utilização (evita divisão por zero)
+    $usage_rate = $category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) . '%' : '-';
+
+    // Link para a página details.php
     $link = html_writer::link(
         new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $category->id]),
         format_string($category->categoryname)
     );
 
-    // Valores fictícios
+    // Preenchendo os dados da tabela
     $table->data[] = [
-        $link,                   // Nome da Categoria com link para a página de detalhes
+        $link,                    // Nome da Categoria com link para a página de detalhes
         $category->coursecount,   // Quantidade de Cursos Criados
-        '-',                     // Quantidade de Cursos Utilizados (a ser implementado)
-        '-'                      // Taxa de Utilização (a ser implementado)
+        $used_course_count,       // Quantidade de Cursos Utilizados
+        $usage_rate               // Taxa de Utilização em %
     ];
 }
 
@@ -71,4 +83,5 @@ foreach ($categories as $category) {
 echo html_writer::table($table);
 
 echo $OUTPUT->footer();
+
 
