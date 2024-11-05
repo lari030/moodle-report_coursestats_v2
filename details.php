@@ -41,8 +41,8 @@ echo $OUTPUT->header();
 // Exibe o nome da categoria no topo
 echo $OUTPUT->heading('Categoria: ' . format_string($categoryname));
 
-// Link para voltar à página anterior (index.php)
-echo html_writer::link(new moodle_url('/report/coursestats_v2/index.php'), get_string('backtocategories', 'report_coursestats_v2'));
+// Link para voltar à página anterior (table_categories.php)
+echo html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
 // Primeira tabela: Tipos de Uso
 echo $OUTPUT->heading('Tipos de Uso');
