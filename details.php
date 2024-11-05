@@ -41,8 +41,36 @@ echo $OUTPUT->header();
 // Exibe o nome da categoria no topo
 echo $OUTPUT->heading('Categoria: ' . format_string($categoryname));
 
-// Link para voltar à página anterior (table_categories.php)
-echo html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
+// Link para voltar à página anterior (index.php)
+echo html_writer::link(new moodle_url('/report/coursestats_v2/index.php'), get_string('backtocategories', 'report_coursestats_v2'));
+
+$query1 = "SELECT count(*) AS total FROM {report_coursestats_courses} 
+          JOIN {report_coursestats} 
+          ON {report_coursestats_courses}.courseid = {report_coursestats}.courseid
+          WHERE {report_coursestats_courses}.coursestats_category_id = :category
+          AND {report_coursestats}.curr_usage_type = :type";
+          
+$params1 = ['category' => $categoryid, 'type' => 'forum'];
+$params2 = ['category' => $categoryid,'type'=> 'repository'];
+$params3 = ['category' => $categoryid,'type'=> 'activity'];
+
+$forum = $DB->get_record_sql($query1, $params1);
+$repository = $DB->get_record_sql($query1, $params2);
+$activity = $DB->get_record_sql($query1, $params3);
+
+
+$query2 = "SELECT count(*) AS total FROM {report_coursestats_courses} WHERE {report_coursestats_courses}.coursestats_category_id = $categoryid";
+$allCourses = $DB->get_record_sql($query2);
+
+
+$percentageForum = ($forum->total/$allCourses->total)*100;
+$percentageForum = number_format($percentageForum,2,'.','');
+
+$percentageRepository = ($repository->total/$allCourses->total)*100;
+$percentageRepository = number_format($percentageRepository,2,'.','');
+
+$percentageActivity = ($activity->total/$allCourses->total)*100;
+$percentageActivity = number_format($percentageActivity,2,'.','');
 
 // Primeira tabela: Tipos de Uso
 echo $OUTPUT->heading('Tipos de Uso');
@@ -54,9 +82,9 @@ $usage_table->head = [
 ];
 
 // Dados fictícios 
-$usage_table->data[] = ['Fórum', '-', '-'];
-$usage_table->data[] = ['Repositório', '-', '-'];
-$usage_table->data[] = ['Atividades', '-', '-'];
+$usage_table->data[] = ['Fórum', $forum->total, $percentageForum.'%'];
+$usage_table->data[] = ['Repositório', $repository->total, $percentageRepository.'%'];
+$usage_table->data[] = ['Atividades', $activity->total, $percentageActivity.'%'];
 
 echo html_writer::table($usage_table);
 

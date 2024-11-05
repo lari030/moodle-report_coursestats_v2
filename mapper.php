@@ -53,7 +53,9 @@ function processCustomConfig($configuration)
             // Check if all courses are requested
             if ($filters == '*') {
                 // Fetch all courses from the database
-                $courses = $DB->get_records('course');
+                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code";
+                $params = ['code' => $code];
+                $courses = $DB->get_records_sql($query, $params);
                 foreach ($courses as $course) {
                     $course_add = new stdClass();
                     $course_add->name = $course->shortname;
