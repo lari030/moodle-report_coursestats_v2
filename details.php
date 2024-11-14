@@ -47,8 +47,6 @@ $PAGE->set_heading(get_string('categorydetails', 'report_coursestats_v2'));
 echo $OUTPUT->header();
 
 // Exibe o nome da categoria no topo
-//echo $OUTPUT->heading('Categoria: ' . format_string($categoryname));
-
 // Link para voltar à página anterior (index.php)
 $back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
@@ -75,7 +73,6 @@ $percentageRepository = $repository->total > 0 ? round(($repository->total / $al
 $percentageActivity = $activity->total > 0 ? round(($activity->total / $allCoursesUsage) * 100, 2). '%' : '0%'; 
 
 // Primeira tabela: Tipos de Uso
-//echo $OUTPUT->heading($categoryname.'('.$back.')');
 echo $OUTPUT->heading($categoryname . ' (' . $back . ')', 4, 'text-center');
 
 $usage_table = new html_table();
@@ -96,19 +93,19 @@ $usage_table->data[] = [html_writer::tag('strong', 'Total'),
 echo html_writer::table($usage_table);
 
 // Segunda tabela: Módulos
-echo $OUTPUT->heading('Módulos');
-$modules_table = new html_table();
-$modules_table->head = [
-    get_string('modules', 'report_coursestats_v2'),
-    get_string('roomcount', 'report_coursestats_v2'),
-    get_string('percentage', 'report_coursestats_v2')
-];
+// echo $OUTPUT->heading('Módulos');
+// $modules_table = new html_table();
+// $modules_table->head = [
+//     get_string('modules', 'report_coursestats_v2'),
+//     get_string('roomcount', 'report_coursestats_v2'),
+//     get_string('percentage', 'report_coursestats_v2')
+// ];
 
-// Dados fictícios 
-$modules_table->data[] = ['Arquivo', '-', '-'];
-$modules_table->data[] = ['Fórum', '-', '-'];
-$modules_table->data[] = ['Questionário', '-', '-'];
+// // Dados fictícios 
+// $modules_table->data[] = ['Arquivo', '-', '-'];
+// $modules_table->data[] = ['Fórum', '-', '-'];
+// $modules_table->data[] = ['Questionário', '-', '-'];
 
-echo html_writer::table($modules_table);
+//echo html_writer::table($modules_table);
 
 echo $OUTPUT->footer();
