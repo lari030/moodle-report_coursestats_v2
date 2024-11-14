@@ -91,7 +91,7 @@ $usage_table->data[] = ['Repositório', $repository->total, $percentageRepositor
 $usage_table->data[] = ['Atividades', $activity->total, $percentageActivity];
 $usage_table->data[] = [html_writer::tag('strong', 'Total'),
                         html_writer::tag('strong', $allCoursesUsage),
-                        html_writer::tag('strong', '100%')];
+                        html_writer::tag('strong', $allCoursesUsage > 0 ? '100%' : '0%')];
 
 echo html_writer::table($usage_table);
 
