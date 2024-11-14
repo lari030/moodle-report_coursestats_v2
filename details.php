@@ -24,6 +24,14 @@
 
 require_once('../../config.php');
 
+echo '<style>
+    .text-center {
+        text-align: center;
+    }
+    .bold-text {
+        font-weight: bold;
+    }
+</style>';
 
 // Obtém o ID da categoria a partir da URL
 $categoryid = required_param('categoryid', PARAM_INT);
@@ -39,10 +47,10 @@ $PAGE->set_heading(get_string('categorydetails', 'report_coursestats_v2'));
 echo $OUTPUT->header();
 
 // Exibe o nome da categoria no topo
-echo $OUTPUT->heading('Categoria: ' . format_string($categoryname));
+//echo $OUTPUT->heading('Categoria: ' . format_string($categoryname));
 
 // Link para voltar à página anterior (index.php)
-echo html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
+$back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
 $query1 = "SELECT count(*) AS total FROM {report_coursestats_courses} 
           JOIN {report_coursestats} 
@@ -67,7 +75,9 @@ $percentageRepository = $repository->total > 0 ? round(($repository->total / $al
 $percentageActivity = $activity->total > 0 ? round(($activity->total / $allCoursesUsage) * 100, 2). '%' : '0%'; 
 
 // Primeira tabela: Tipos de Uso
-echo $OUTPUT->heading('Tipos de Uso');
+//echo $OUTPUT->heading($categoryname.'('.$back.')');
+echo $OUTPUT->heading($categoryname . ' (' . $back . ')', 4, 'text-center');
+
 $usage_table = new html_table();
 $usage_table->head = [
     get_string('usagetype', 'report_coursestats_v2'),
@@ -79,6 +89,9 @@ $usage_table->head = [
 $usage_table->data[] = ['Fórum', $forum->total, $percentageForum];
 $usage_table->data[] = ['Repositório', $repository->total, $percentageRepository];
 $usage_table->data[] = ['Atividades', $activity->total, $percentageActivity];
+$usage_table->data[] = [html_writer::tag('strong', 'Total'),
+                        html_writer::tag('strong', $allCoursesUsage),
+                        html_writer::tag('strong', '100%')];
 
 echo html_writer::table($usage_table);
 
