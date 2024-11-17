@@ -29,13 +29,9 @@ $string['category'] = 'Category';
 $string['coursescreated'] = 'Amount of created courses';
 $string['coursesused'] = 'Amount of used courses';
 $string['usagerate'] = 'Usage rate';
-$string['categorydetails'] = 'Details';
+$string['categorydetails'] = 'Usage statistics';
 $string['backtocategories'] = 'Back';
 $string['usagetype'] = 'Usage type';
 $string['roomcount'] = 'Couses amount';
 $string['percentage'] = 'Percentage';
 $string['modules'] = 'Module';
-
-
-
-
