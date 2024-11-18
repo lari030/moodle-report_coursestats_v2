@@ -38,13 +38,13 @@ echo $OUTPUT->header();
 
 
 if (!empty($customcatnames)) {
-  $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
-  $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
+  $DB->execute("TRUNCATE TABLE {report_coursestatsv2_categories}");
+  $DB->execute("TRUNCATE TABLE {report_coursestatsv2_courses}");
   processCustomConfig($customcatnames); // mudar nome da função para processCustomConfig
   echo "Feito: configuração customizada!!!";
 } else {
-  $DB->execute("TRUNCATE TABLE {report_coursestats_categories}");
-  $DB->execute("TRUNCATE TABLE {report_coursestats_courses}");
+  $DB->execute("TRUNCATE TABLE {report_coursestatsv2_categories}");
+  $DB->execute("TRUNCATE TABLE {report_coursestatsv2_courses}");
   processMoodleConfig();
   echo "Feito: configuração do Moodle!!!";
 }

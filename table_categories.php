@@ -35,8 +35,8 @@ defined('MOODLE_INTERNAL') || die();
 
 // Consulta usando a Data Manipulation API do Moodle para obter as categorias e cursos criados
 $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
-        FROM {report_coursestats_categories} cc
-        LEFT JOIN {report_coursestats_courses} c ON c.coursestats_category_id = cc.id
+        FROM {report_coursestatsv2_categories} cc
+        LEFT JOIN {report_coursestatsv2_courses} c ON c.coursestats_category_id = cc.id
         GROUP BY cc.id, cc.name
         ORDER BY cc.name";
 
@@ -56,8 +56,8 @@ foreach ($categories as $category) {
 
     // Consulta para obter a quantidade de cursos utilizados na categoria
     $used_courses_sql = "SELECT COUNT(*)
-                         FROM {report_coursestats_courses} rcc
-                         JOIN {report_coursestats} rc ON rcc.courseid = rc.courseid
+                         FROM {report_coursestatsv2_courses} rcc
+                         JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
                          WHERE rcc.coursestats_category_id = :categoryid";
     $used_course_count = $DB->count_records_sql($used_courses_sql, ['categoryid' => $category->id]);
 

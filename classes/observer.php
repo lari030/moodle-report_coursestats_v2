@@ -35,7 +35,7 @@ class report_coursestats_v2_observer {
 			$course = $DB->get_record(COURSE_TABLE_NAME, array('id'=>$event->courseid));
 			
 			/* 
-			 * Check if there is no records for the 'courseid' in the table 'report_coursestats'.
+			 * Check if there is no records for the 'courseid' in the table 'report_coursestatsv2'.
 			 * If yes, a record is created with usage type classified as 'forum'. 
 			 */
 			if (!$DB->record_exists(PLUGIN_TABLE_NAME, array('courseid'=>$event->courseid))) {
