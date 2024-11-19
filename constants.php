@@ -23,18 +23,12 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-define('ALL_USAGE_TYPE', 'all');
-define('ALL_CATEGORIES', -1);
-define('NULL_USAGE_TYPE', 'null');
-define('FORUM_USAGE_TYPE', 'forum');
-define('REPOSITORY_USAGE_TYPE', 'repository');
-define('ACTIVITY_USAGE_TYPE', 'activity');
-define('PLUGIN_TABLE_NAME', 'report_coursestatsv2');
-define('NEWS_FORUM_NAME', 'news');
-define('FORUM_TABLE_NAME', 'forum');
-define('COURSE_TABLE_NAME', 'course');
-define('COURSE_CATEGORIES_TABLE_NAME', 'course_categories');
-define('REPOSITORY_MODULES', serialize(array('resource', 'url', 'folder')));
-define('CREATED_COURSES', 'created');
-define('USED_COURSES', 'used');
-define('NOTUSED_COURSES', 'notused');
+define('NULL_USAGE_TYPE_V2', 'null');
+define('FORUM_USAGE_TYPE_V2', 'forum');
+define('REPOSITORY_USAGE_TYPE_V2', 'repository');
+define('ACTIVITY_USAGE_TYPE_V2', 'activity');
+define('PLUGIN_TABLE_NAME_V2', 'report_coursestatsv2');
+define('NEWS_FORUM_NAME_V2', 'news');
+define('FORUM_TABLE_NAME_V2', 'forum');
+define('COURSE_TABLE_NAME_V2', 'course');
+define('REPOSITORY_MODULES_V2', serialize(array('resource', 'url', 'folder')));
