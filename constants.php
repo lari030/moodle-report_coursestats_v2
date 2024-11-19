@@ -29,7 +29,7 @@ define('NULL_USAGE_TYPE', 'null');
 define('FORUM_USAGE_TYPE', 'forum');
 define('REPOSITORY_USAGE_TYPE', 'repository');
 define('ACTIVITY_USAGE_TYPE', 'activity');
-define('PLUGIN_TABLE_NAME', 'report_coursestats');
+define('PLUGIN_TABLE_NAME', 'report_coursestatsv2');
 define('NEWS_FORUM_NAME', 'news');
 define('FORUM_TABLE_NAME', 'forum');
 define('COURSE_TABLE_NAME', 'course');
