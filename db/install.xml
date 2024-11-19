@@ -1,7 +1,7 @@
 <XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PATH="report/coursestats_v2/db" VERSION="2024090211" COMMENT="XMLDB file for Moodle report/coursestats_v2" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
     <TABLES>
-            <!--  Tabela report_coursestatsv2_categories  -->
-        <TABLE NAME="report_coursestatsv2_categories" COMMENT="Tabela para armazenar categorias de estatísticas dos cursos">
+            <!--  Tabela report_coursestats_categories  -->
+        <TABLE NAME="report_coursestats_categories" COMMENT="Tabela para armazenar categorias de estatísticas dos cursos">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
@@ -11,8 +11,8 @@
             </KEYS>
         </TABLE>
 
-        <!--  Tabela report_coursestatsv2_courses  -->
-        <TABLE NAME="report_coursestatsv2_courses" COMMENT="Tabela para armazenar cursos e associar às categorias de estatísticas">
+        <!--  Tabela report_coursestats_courses  -->
+        <TABLE NAME="report_coursestats_courses" COMMENT="Tabela para armazenar cursos e associar às categorias de estatísticas">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
@@ -21,13 +21,13 @@
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-                <KEY NAME="coursestats_category_id_fk" TYPE="foreign" FIELDS="coursestats_category_id" REFTABLE="report_coursestatsv2_categories" REFFIELDS="id"/>
+                <KEY NAME="coursestats_category_id_fk" TYPE="foreign" FIELDS="coursestats_category_id" REFTABLE="report_coursestats_categories" REFFIELDS="id"/>
                 <KEY NAME="courseid_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
             </KEYS>
         </TABLE>
 
-        <!--  Tabela report_coursestatsv2  -->
-        <TABLE NAME="report_coursestatsv2" COMMENT="This table stores information about course usage statistics.">
+        <!--  Tabela report_coursestats  -->
+        <TABLE NAME="report_coursestats" COMMENT="This table stores information about course usage statistics.">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Course id"/>
