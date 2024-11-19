@@ -37,7 +37,7 @@ echo '<style>
 $categoryid = required_param('categoryid', PARAM_INT);
 
 // Consulta o nome da categoria a partir do ID
-$categoryname = $DB->get_field('report_coursestatsv2_categories', 'name', ['id' => $categoryid], MUST_EXIST);
+$categoryname = $DB->get_field('report_coursestatsv2_cat', 'name', ['id' => $categoryid], MUST_EXIST);
 
 $PAGE->set_url(new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $categoryid]));
 $PAGE->set_context($context);
@@ -50,10 +50,10 @@ echo $OUTPUT->header();
 // Link para voltar à página anterior (index.php)
 $back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
-$query1 = "SELECT count(*) AS total FROM {report_coursestatsv2_courses} 
+$query1 = "SELECT count(*) AS total FROM {report_coursestatsv2_course} 
           JOIN {report_coursestatsv2} 
-          ON {report_coursestatsv2_courses}.courseid = {report_coursestatsv2}.courseid
-          WHERE {report_coursestatsv2_courses}.coursestats_category_id = :category
+          ON {report_coursestatsv2_course}.courseid = {report_coursestatsv2}.courseid
+          WHERE {report_coursestatsv2_course}.coursestats_category_id = :category
           AND {report_coursestatsv2}.curr_usage_type = :type";
           
 $params1 = ['category' => $categoryid, 'type' => 'forum'];

@@ -43,7 +43,7 @@ function processCustomConfig($configuration)
             $currentCategory = rtrim($line, ':');
             $category = new stdClass();
             $category->name = $currentCategory;
-            $id = $DB->insert_record('report_coursestatsv2_categories', $category);
+            $id = $DB->insert_record('report_coursestatsv2_cat', $category);
         } elseif (strpos($line, ':') !== false) {
             // The list function assigns each variable a value from the passed array
             list($code, $filters) = explode(':', $line);
@@ -61,7 +61,7 @@ function processCustomConfig($configuration)
                     $course_add->name = $course->shortname;
                     $course_add->courseid = $course->id;
                     $course_add->coursestats_category_id = $id;
-                    $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                    $DB->insert_record('report_coursestatsv2_course', $course_add);
                 }
             }
             // Check if there are multiple filter configurations to search in the database
@@ -82,7 +82,7 @@ function processCustomConfig($configuration)
                                 $course_add->name = $result->shortname;
                                 $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
-                                $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                                $DB->insert_record('report_coursestatsv2_course', $course_add);
                             }
                             // Fetch courses that end with a specific name
                         } elseif (strpos($course, '%') === 0) {
@@ -94,7 +94,7 @@ function processCustomConfig($configuration)
                                 $course_add->name = $result->shortname;
                                 $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
-                                $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                                $DB->insert_record('report_coursestatsv2_course', $course_add);
                             }
                             // Fetch courses that start with a specific name
                         } elseif (strrpos($course, '%') === strlen($course) - 1) {
@@ -106,7 +106,7 @@ function processCustomConfig($configuration)
                                 $course_add->name = $result->shortname;
                                 $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
-                                $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                                $DB->insert_record('report_coursestatsv2_course', $course_add);
                             }
                         }
                     }
@@ -120,7 +120,7 @@ function processCustomConfig($configuration)
                             $course_add->name = $result->shortname;
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
-                            $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                            $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
                     }
                 }
@@ -139,7 +139,7 @@ function processCustomConfig($configuration)
                             $course_add->name = $result->shortname;
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
-                            $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                            $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
                     } elseif (strpos($filters, '%') === 0) {
                         $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
@@ -150,7 +150,7 @@ function processCustomConfig($configuration)
                             $course_add->name = $result->shortname;
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
-                            $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                            $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
                     } elseif (strrpos($filters, '%') === strlen($filters) - 1) {
                         $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
@@ -161,7 +161,7 @@ function processCustomConfig($configuration)
                             $course_add->name = $result->shortname;
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
-                            $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                            $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
                     }
                 } else {
@@ -173,7 +173,7 @@ function processCustomConfig($configuration)
                         $course_add->name = $result->shortname;
                         $course_add->courseid = $result->id;
                         $course_add->coursestats_category_id = $id;
-                        $DB->insert_record('report_coursestatsv2_courses', $course_add);
+                        $DB->insert_record('report_coursestatsv2_course', $course_add);
                     }
                 }
             }
@@ -199,7 +199,7 @@ function processMoodleConfig()
         $category_add->name = $category->name; // Assign the name of the category
 
         // Insert the category into the report_coursestats_categories table and get the new ID
-        $id = $DB->insert_record('report_coursestatsv2_categories', $category_add);
+        $id = $DB->insert_record('report_coursestatsv2_cat', $category_add);
 
         // Query to select all visible courses within the current category
         $query = "SELECT * FROM {course} WHERE visible = 1 and category = :codigo";
@@ -215,8 +215,8 @@ function processMoodleConfig()
             $curse_add->courseid = $result->id;    // Assign the id of the course on the original Moodle table
             $curse_add->coursestats_category_id = $id; // Link the course to its corresponding category ID in the report table
 
-            // Insert the course information into the report_coursestatsv2_courses table
-            $DB->insert_record('report_coursestatsv2_courses', $curse_add);
+            // Insert the course information into the report_coursestatsv2_course table
+            $DB->insert_record('report_coursestatsv2_course', $curse_add);
         }
     }
 }
