@@ -165,9 +165,9 @@ function processCustomConfig($configuration)
                         }
                     }
                 } else {
-                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :filters";
+                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname = :filters";
                     $params = ['code' => $code, 'filters' => $filters];
-                    $result = $DB->get_records_sql($query, $params);
+                    $result = $DB->get_record_sql($query, $params);
                     if ($result) { // Check if result exists before accessing properties
                         $course_add = new stdClass();
                         $course_add->name = $result->shortname;
