@@ -83,9 +83,9 @@ $usage_table->head = [
 ];
 
 // Dados fictícios 
-$usage_table->data[] = ['Fórum', $forum->total, $percentageForum];
-$usage_table->data[] = ['Repositório', $repository->total, $percentageRepository];
-$usage_table->data[] = ['Atividades', $activity->total, $percentageActivity];
+$usage_table->data[] = [get_string('usageForum', 'report_coursestats_v2'), $forum->total, $percentageForum];
+$usage_table->data[] = [get_string('usageRepository', 'report_coursestats_v2'), $repository->total, $percentageRepository];
+$usage_table->data[] = [get_string('usageActivity', 'report_coursestats_v2'), $activity->total, $percentageActivity];
 $usage_table->data[] = [html_writer::tag('strong', 'Total'),
                         html_writer::tag('strong', $allCoursesUsage),
                         html_writer::tag('strong', $allCoursesUsage > 0 ? '100%' : '0%')];
