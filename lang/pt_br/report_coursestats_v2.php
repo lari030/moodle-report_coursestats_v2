@@ -38,4 +38,5 @@ $string['usageActivity'] = 'Arcabouço de atividades';
 $string['roomcount'] = 'Quantidade de cursos';
 $string['percentage'] = 'Porcentagem';
 $string['modules'] = 'Módulo';
-
+$string['courses'] = 'Cursos';
+$string['unusedCourses'] = 'Quantidade de cursos não utilizados';
