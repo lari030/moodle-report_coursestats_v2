@@ -73,6 +73,12 @@ foreach ($categories as $category) {
         format_string($category->categoryname)
     );
 
+    //Link para a página de cursos criados
+    $link2 = html_writer::link(
+        new moodle_url('/report/coursestats_v2/created_courses.php', ['categoryid' => $category->id]),
+        format_string($category->coursecount)
+    );
+
     $link3 = html_writer::link(
         new moodle_url('/report/coursestats_v2/used_courses.php', ['categoryid' => $category->id]),
         format_string($used_course_count)
@@ -86,7 +92,7 @@ foreach ($categories as $category) {
     // Preenchendo os dados da tabela
     $table->data[] = [
         $link,                    // Nome da Categoria com link para a página de detalhes
-        $category->coursecount,   // Quantidade de Cursos Criados
+        $link2,         // Quantidade de Cursos Criados
         $link3,       // Quantidade de Cursos Utilizados
         $link4,
         $usage_rate               // Taxa de Utilização em %
