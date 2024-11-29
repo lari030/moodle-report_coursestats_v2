@@ -24,7 +24,8 @@
 $string['pluginname'] = 'Estatísticas de Utilização de Cursos - v2';
 $string['heading'] = 'Funciona!';
 $string['coursestatsv2_settings'] = '[Configurações] Estatísticas de Utilização de Cursos - v2';
-$string['catnamechanger_text'] = 'Dados para mapeamento de categorias e cursos:';
+$string['catnamechanger_text'] = 'Configuração de categorias e cursos:';
+$string['catnamechanger_desc'] = 'Se não quiser configurar categorias e cursos agora, você pode deixar este campo vazio.</br>Mais informações sobre possíveis configurações de categorias e cursos podem ser encontradas <a href="https://github.com/dired-ufla/moodle-report_coursestats_v2">clicando aqui</a>.';
 $string['category'] = 'Categoria';
 $string['coursescreated'] = 'Quantidade de cursos criados';
 $string['coursesused'] = 'Quantidade de cursos utilizados';
