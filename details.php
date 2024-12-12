@@ -93,19 +93,20 @@ $usage_table->data[] = [html_writer::tag('strong', 'Total'),
 echo html_writer::table($usage_table);
 
 // Segunda tabela: Módulos
-// echo $OUTPUT->heading('Módulos');
-// $modules_table = new html_table();
-// $modules_table->head = [
-//     get_string('modules', 'report_coursestats_v2'),
-//     get_string('roomcount', 'report_coursestats_v2'),
-//     get_string('percentage', 'report_coursestats_v2')
-// ];
+echo $OUTPUT->heading('Módulos utilizados');
+ $modules_table = new html_table();
+ $modules_table->head = [
+    get_string('modules', 'report_coursestats_v2'),
+    get_string('roomcount', 'report_coursestats_v2'),
+    get_string('percentage', 'report_coursestats_v2')
+ ];
 
-// // Dados fictícios 
-// $modules_table->data[] = ['Arquivo', '-', '-'];
-// $modules_table->data[] = ['Fórum', '-', '-'];
-// $modules_table->data[] = ['Questionário', '-', '-'];
+// Dados fictícios 
+    $modules_table->data[] = ['Arquivo', '-', '-'];
+    $modules_table->data[] = ['Fórum', '-', '-'];
+    $modules_table->data[] = ['Questionário', '-', '-'];
+    $modules_table->data[] = ['Tarefa', '-', '-'];
 
-//echo html_writer::table($modules_table);
+echo html_writer::table($modules_table);
 
 echo $OUTPUT->footer();
