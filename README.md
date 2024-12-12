@@ -2,10 +2,10 @@
 
 Esta é uma versão aprimorada do plugin [CourseStats](https://github.com/dired-ufla/coursestats). 
 
-## :hammer_and_wrench: Funcionalidade disponível 
-* Exibe a quantidade e a lista de salas virtuais "criadas", "utilizadas" e "não utilizadas", bem como a taxa de utilização de salas, por categorias.
-* Exibe os tipos de uso das salas virtuais, a saber, "fórum", "repositório" ou "arcabouço de atividades".
-* Permite ao administrador customizar as categorias e as salas virtuais que serão consideradas pelo plugin para o cálculo das estatísticas de uso. 
+## :hammer_and_wrench: Funcionalidades disponíveis 
+* Exibe a quantidade e a lista de salas virtuais **criadas**, **utilizadas** e **não utilizadas**, além da taxa de utilização das salas por categorias.
+* Apresenta os tipos de uso das salas virtuais, incluindo **fórum**, **repositório** e **arcabouço de atividades**.
+* Permite que o administrador personalize as categorias e salas virtuais que serão consideradas pelo plugin para o cálculo das estatísticas de uso.
 
 ## :tv: Instalação, configuração e uso
 
