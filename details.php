@@ -99,20 +99,15 @@ $query2 = "SELECT COUNT(DISTINCT rcc.courseid) AS amount FROM {report_coursestat
         WHERE rcc.coursestats_category_id = :category AND cm.module = :module
         GROUP BY m.name, m.id";
 
-$query3 = "SELECT COUNT(DISTINCT rcc.courseid) AS amount FROM {report_coursestatsv2_course} rcc 
-        JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
-        JOIN {course_modules} cm ON rcc.courseid = cm.course
-        JOIN {modules} m ON cm.module = m.id
-        WHERE rcc.coursestats_category_id = :category AND (cm.module = 18 OR cm.module = 21 OR cm.module = 8)
-        GROUP BY m.name, m.id";
+
 
 $params4 = ['category' => $categoryid, 'module' => 9]; // forum
-$params5 = ['category' => $categoryid]; 
+$params5 = ['category' => $categoryid, 'module' => 18]; // file
 $params6 = ['category' => $categoryid, 'module'=> 17]; // quiz
 $params7 = ['category' => $categoryid, 'module'=> 1]; // task
 
 $module_forum = $DB->get_record_sql($query2, $params4);
-$module_file = $DB->get_record_sql($query3, $params5);
+$module_file = $DB->get_record_sql($query2, $params5);
 $module_quiz = $DB->get_record_sql($query2, $params6);
 $module_task = $DB->get_record_sql($query2, $params7);
 
