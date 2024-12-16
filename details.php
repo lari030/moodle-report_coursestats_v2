@@ -99,13 +99,20 @@ $query2 = "SELECT COUNT(DISTINCT rcc.courseid) AS amount FROM {report_coursestat
         WHERE rcc.coursestats_category_id = :category AND cm.module = :module
         GROUP BY m.name, m.id";
 
+$query3 = "SELECT COUNT(DISTINCT rcc.courseid) AS amount FROM {report_coursestatsv2_course} rcc 
+        JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
+        JOIN {course_modules} cm ON rcc.courseid = cm.course
+        JOIN {modules} m ON cm.module = m.id
+        WHERE rcc.coursestats_category_id = :category AND (cm.module = 18 OR cm.module = 21 OR cm.module = 8)
+        GROUP BY m.name, m.id";
+
 $params4 = ['category' => $categoryid, 'module' => 9]; // forum
-$params5 = ['category' => $categoryid, 'module'=> 18]; // file
+$params5 = ['category' => $categoryid]; 
 $params6 = ['category' => $categoryid, 'module'=> 17]; // quiz
 $params7 = ['category' => $categoryid, 'module'=> 1]; // task
 
 $module_forum = $DB->get_record_sql($query2, $params4);
-$module_file = $DB->get_record_sql($query2, $params5);
+$module_file = $DB->get_record_sql($query3, $params5);
 $module_quiz = $DB->get_record_sql($query2, $params6);
 $module_task = $DB->get_record_sql($query2, $params7);
 
@@ -113,8 +120,6 @@ $amount_forum = $module_forum ? $module_forum->amount : 0;
 $amount_file = $module_file ? $module_file->amount : 0;
 $amount_quiz = $module_quiz ? $module_quiz->amount : 0;
 $amount_task = $module_task ? $module_task->amount : 0;
-
-echo $amount_forum;
 
 $percentage_forum2 = $amount_forum > 0 ? '100%' : '0%';
 $percentage_file = $amount_file > 0 ? round(($amount_file / $amount_forum) * 100, 2). '%' : '0%';
