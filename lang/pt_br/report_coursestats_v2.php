@@ -41,3 +41,4 @@ $string['percentage'] = 'Porcentagem';
 $string['modules'] = 'Módulo';
 $string['courses'] = 'Cursos';
 $string['unusedCourses'] = 'Quantidade de cursos não utilizados';
+$string['amount'] = 'Total';
