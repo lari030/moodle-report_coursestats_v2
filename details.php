@@ -92,34 +92,16 @@ $usage_table->data[] = [html_writer::tag('strong', get_string('amount', 'report_
 
 echo html_writer::table($usage_table);
 
-$query2 = "SELECT COUNT(DISTINCT rcc.courseid) AS amount FROM {report_coursestatsv2_course} rcc 
-        JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
-        JOIN {course_modules} cm ON rcc.courseid = cm.course
-        JOIN {modules} m ON cm.module = m.id
-        WHERE rcc.coursestats_category_id = :category AND cm.module = :module
-        GROUP BY m.name, m.id";
+$query2 = "SELECT M.name, M.id, COUNT(CM.id) AS amount 
+    FROM {modules} AS M 
+    INNER JOIN {report_coursestatsv2_mod} AS CM ON M.id = CM.moduleid 
+    INNER JOIN {report_coursestatsv2} AS C ON CM.courseid = C.courseid
+    INNER JOIN {report_coursestatsv2_course} AS RCC ON C.courseid = RCC.courseid
+    WHERE RCC.coursestats_category_id = :cat GROUP BY M.name, M.id";
 
 
 
-$params4 = ['category' => $categoryid, 'module' => 9]; // forum
-$params5 = ['category' => $categoryid, 'module' => 18]; // file
-$params6 = ['category' => $categoryid, 'module'=> 17]; // quiz
-$params7 = ['category' => $categoryid, 'module'=> 1]; // task
-
-$module_forum = $DB->get_record_sql($query2, $params4);
-$module_file = $DB->get_record_sql($query2, $params5);
-$module_quiz = $DB->get_record_sql($query2, $params6);
-$module_task = $DB->get_record_sql($query2, $params7);
-
-$amount_forum = $module_forum ? $module_forum->amount : 0;
-$amount_file = $module_file ? $module_file->amount : 0;
-$amount_quiz = $module_quiz ? $module_quiz->amount : 0;
-$amount_task = $module_task ? $module_task->amount : 0;
-
-$percentage_forum2 = $amount_forum > 0 ? '100%' : '0%';
-$percentage_file = $amount_file > 0 ? round(($amount_file / $amount_forum) * 100, 2). '%' : '0%';
-$percentage_quiz = $amount_quiz > 0 ? round(($amount_quiz / $amount_forum) * 100, 2). '%' : '0%';
-$percentage_task = $amount_task > 0 ? round(($amount_task / $amount_forum) * 100, 2). '%' : '0%';
+$data = $DB->get_record_sql($query2, array("cat", $categoryid));
 
 // Segunda tabela: Módulos
 echo $OUTPUT->heading('Módulos utilizados');
@@ -130,11 +112,18 @@ echo $OUTPUT->heading('Módulos utilizados');
     get_string('percentage', 'report_coursestats_v2')
  ];
 
-// Dados fictícios 
-    $modules_table->data[] = ['Fórum', $amount_forum, $percentage_forum2];
-    $modules_table->data[] = ['Arquivo', $amount_file, $percentage_file];
-    $modules_table->data[] = ['Questionário', $amount_quiz, $percentage_quiz];
-    $modules_table->data[] = ['Tarefa', $amount_task, $percentage_task];
+ foreach ($data as $item) {
+    $row = array();
+
+    $percent = number_format(($item->amount / $allCoursesUsage) * 100, 2);
+
+    $row[] = $item->name;
+    $row[] = $item->amount;
+    $row[] = $percent;
+
+    $modules_table->data[] = $row;
+}
+ 
 
 echo html_writer::table($modules_table);
 

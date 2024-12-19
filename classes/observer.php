@@ -52,12 +52,22 @@ class report_coursestats_v2_observer {
 	private static function handle_module($event) {
 		global $DB;
        	
+		// Insert the module in the table report_coursestatsv2_mod
+		$module = $DB->get_record(MODULES_TABLE_NAME_V2, array('name'=>$event->other['modulename']));
+		$moduleid = $module->id;
+		$modulename = $module->name;
+
+		$record = new stdClass();
+ 		$record->courseid = $event->courseid;
+ 		$record->moduleid = $moduleid;
+ 		$DB->insert_record(PLUGIN_MODULES_TABLE_NAME_V2, $record);
+
 		/* 
 		* If the module name is 'url', 'folder' or 'resource', then the usage type is 'repository'.
 		* Otherwise, the usage type is 'activity' 
 		*/
 		$usage_type = '';
-		if (in_array($event->other['modulename'], unserialize(REPOSITORY_MODULES_V2))) {
+		if (in_array($modulename, unserialize(REPOSITORY_MODULES_V2))) {
  			$usage_type	= REPOSITORY_USAGE_TYPE_V2;
 		} else {
  			$usage_type	= ACTIVITY_USAGE_TYPE_V2;

@@ -25,7 +25,21 @@
                 <KEY NAME="courseid_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
             </KEYS>
         </TABLE>
-
+        
+        <!--  Tabela report_coursestatsv2_mod  -->
+        <TABLE NAME="report_coursestatsv2_mod" COMMENT="Tabela para armazenar módulos usados pelos cursos">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="courseid_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+                <KEY NAME="moduleid_fk" TYPE="foreign" FIELDS="moduleid" REFTABLE="modules" REFFIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        
         <!--  Tabela report_coursestatsv2  -->
         <TABLE NAME="report_coursestatsv2" COMMENT="This table stores information about course usage statistics.">
             <FIELDS>
