@@ -106,7 +106,7 @@ echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  foreach ($data as $item) {
     $row = array();
 
-    $percent = number_format(($item->amount / $allCoursesUsage) * 100, 2);
+    $percent = $item->amount > 0 ? round(($item->amount / $allCoursesUsage) * 100, 2). '%' : '0%'; 
 
     $row[] = $item->name;
     $row[] = $item->amount;
