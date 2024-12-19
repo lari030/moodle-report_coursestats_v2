@@ -42,6 +42,13 @@ $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
 
 $categories = $DB->get_records_sql($sql);
 
+
+echo html_writer::start_div('text-center');
+echo html_writer::link(
+    new moodle_url('/report/coursestats_v2/csvgen.php'),
+    get_string('exporttocsv', 'report_coursestats_v2'),
+);
+
 // Criação da tabela principal com categorias reais e cursos criados
 $table = new html_table();
 $table->head = [
