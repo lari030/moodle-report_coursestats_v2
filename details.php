@@ -33,7 +33,6 @@ $categoryname = $DB->get_field('report_coursestatsv2_cat', 'name', ['id' => $cat
 $PAGE->set_url(new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $categoryid]));
 $PAGE->set_context($context);
 $PAGE->set_title(get_string('categorydetails', 'report_coursestats_v2'));
-$PAGE->set_heading(get_string('categorydetails', 'report_coursestats_v2'));
 
 echo $OUTPUT->header();
 
@@ -65,6 +64,7 @@ $percentageActivity = $activity->amount > 0 ? round(($activity->amount / $allCou
 
 // Primeira tabela: Tipos de Uso
 echo $OUTPUT->heading($categoryname . ' (' . $back . ')', 4, 'text-center');
+echo $OUTPUT->heading(get_string('categorydetails', 'report_coursestats_v2'));
 
 $usage_table = new html_table();
 $usage_table->head = [
@@ -88,14 +88,14 @@ $query2 = "SELECT M.name, M.id, COUNT(CM.id) AS amount
     INNER JOIN {report_coursestatsv2_mod} AS CM ON M.id = CM.moduleid 
     INNER JOIN {report_coursestatsv2} AS C ON CM.courseid = C.courseid
     INNER JOIN {report_coursestatsv2_course} AS RCC ON C.courseid = RCC.courseid
-    WHERE RCC.coursestats_category_id = :cat GROUP BY M.name, M.id";
+    WHERE RCC.coursestats_category_id = :category GROUP BY M.name, M.id";
 
 
 $param = ['category' => $categoryid];
 $data = $DB->get_records_sql($query2, $param);
 
 // Segunda tabela: Módulos
-echo $OUTPUT->heading('Módulos utilizados');
+echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  $modules_table = new html_table();
  $modules_table->head = [
     get_string('modules', 'report_coursestats_v2'),

@@ -31,6 +31,7 @@ $string['coursescreated'] = 'Amount of created courses';
 $string['coursesused'] = 'Amount of used courses';
 $string['usagerate'] = 'Usage rate';
 $string['categorydetails'] = 'Usage statistics';
+$string['modulesdetails'] = 'Used modules';
 $string['backtocategories'] = 'Back';
 $string['usagetype'] = 'Usage type';
 $string['usageForum'] = 'Forum';
