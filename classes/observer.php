@@ -27,7 +27,7 @@ require(__DIR__. '/../constants.php');
 class report_coursestats_v2_observer {	
     public static function forum_discussion_created(\mod_forum\event\discussion_created $event) {
 		global $DB;
-		
+
 		// Check if the forum instance is for announcements 
 		$result = $DB->get_record(FORUM_TABLE_NAME_V2, array('id'=>$event->other['forumid']));
 		if ($result->type === NEWS_FORUM_NAME_V2) {

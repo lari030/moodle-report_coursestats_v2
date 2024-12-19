@@ -48,6 +48,7 @@ echo html_writer::link(
     new moodle_url('/report/coursestats_v2/csvgen.php'),
     get_string('exporttocsv', 'report_coursestats_v2'),
 );
+html_writer::end_div();
 
 // Criação da tabela principal com categorias reais e cursos criados
 $table = new html_table();

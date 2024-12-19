@@ -24,15 +24,6 @@
 
 require_once('../../config.php');
 
-echo '<style>
-    .text-center {
-        text-align: center;
-    }
-    .bold-text {
-        font-weight: bold;
-    }
-</style>';
-
 // Obtém o ID da categoria a partir da URL
 $categoryid = required_param('categoryid', PARAM_INT);
 
@@ -100,8 +91,8 @@ $query2 = "SELECT M.name, M.id, COUNT(CM.id) AS amount
     WHERE RCC.coursestats_category_id = :cat GROUP BY M.name, M.id";
 
 
-
-$data = $DB->get_record_sql($query2, array("cat", $categoryid));
+$param = ['category' => $categoryid];
+$data = $DB->get_records_sql($query2, $param);
 
 // Segunda tabela: Módulos
 echo $OUTPUT->heading('Módulos utilizados');

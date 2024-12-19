@@ -39,7 +39,6 @@ $headers = [
     get_string('coursescreated', 'report_coursestats_v2'),
     get_string('coursesused', 'report_coursestats_v2'),
     get_string('unusedCourses', 'report_coursestats_v2'),
-    get_string('usagerate', 'report_coursestats_v2')
 ];
 fputcsv($fp, $headers);
 
@@ -61,7 +60,6 @@ foreach ($categories as $category) {
     $used_course_count = $DB->count_records_sql($used_courses_sql, ['categoryid' => $category->id]);
 
     // Calculando a taxa de utilização e cursos não utilizados
-    $usage_rate = $category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) . '%' : '-';
     $unused_courses = $category->coursecount - $used_course_count;
 
     // Adicionando os dados ao CSV
@@ -70,7 +68,6 @@ foreach ($categories as $category) {
         $category->coursecount,  
         $used_course_count,      
         $unused_courses,         
-        $usage_rate             
     ];
     fputcsv($fp, $row);
 }
