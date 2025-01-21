@@ -37,6 +37,8 @@ function processCustomConfig($configuration)
     foreach ($lines as $line) {
         // The trim function removes spaces from the beginning and end of the line
         $line = trim($line);
+        $filhas = false;
+        //echo $filhas;
 
         // Check to determine if it is a category or a filter for the courses to be fetched
         if (strpos($line, ':') !== false && trim(substr($line, strpos($line, ':') + 1)) === '') {
@@ -45,6 +47,9 @@ function processCustomConfig($configuration)
             $category->name = $currentCategory;
             $id = $DB->insert_record('report_coursestatsv2_cat', $category);
         } elseif (strpos($line, ':') !== false) {
+            if(strpos($line, '+') !== false){
+                $filhas  = true;
+            }
             // The list function assigns each variable a value from the passed array
             list($code, $filters) = explode(':', $line);
             $code = trim($code);
@@ -62,6 +67,24 @@ function processCustomConfig($configuration)
                     $course_add->courseid = $course->id;
                     $course_add->coursestats_category_id = $id;
                     $DB->insert_record('report_coursestatsv2_course', $course_add);
+                }
+                
+                if($filhas){
+                    $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                    $params = ['code' => $code];
+                    $cat_ids = $DB->get_records_sql($query, $params);
+                    foreach($cat_ids as $cat_id){
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat";
+                        $params = ['cat' => $cat_id->id];
+                        $courses = $DB->get_records_sql($query, $params);
+                        foreach ($courses as $course) {
+                            $course_add = new stdClass();
+                            $course_add->name = $course->shortname;
+                            $course_add->courseid = $course->id;
+                            $course_add->coursestats_category_id = $id;
+                            $DB->insert_record('report_coursestatsv2_course', $course_add);
+                        }
+                    }
                 }
             }
             // Check if there are multiple filter configurations to search in the database
@@ -84,6 +107,23 @@ function processCustomConfig($configuration)
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestatsv2_course', $course_add);
                             }
+                            if($filhas){
+                                $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                                $params = ['code' => $code];
+                                $cat_ids = $DB->get_records_sql($query, $params);
+                                foreach($cat_ids as $cat_id){
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $params = ['cat' => $cat_id->id, 'course' => $course];
+                                    $results = $DB->get_records_sql($query, $params);
+                                    foreach ($results as $result) {
+                                        $course_add = new stdClass();
+                                        $course_add->name = $result->shortname;
+                                        $course_add->courseid = $result->id;
+                                        $course_add->coursestats_category_id = $id;
+                                        $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                    }
+                                }
+                            }
                             // Fetch courses that end with a specific name
                         } elseif (strpos($course, '%') === 0) {
                             $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
@@ -96,6 +136,23 @@ function processCustomConfig($configuration)
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestatsv2_course', $course_add);
                             }
+                            if($filhas){
+                                $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                                $params = ['code' => $code];
+                                $cat_ids = $DB->get_records_sql($query, $params);
+                                foreach($cat_ids as $cat_id){
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $params = ['cat' => $cat_id->id, 'course' => $course];
+                                    $results = $DB->get_records_sql($query, $params);
+                                    foreach ($results as $result) {
+                                        $course_add = new stdClass();
+                                        $course_add->name = $result->shortname;
+                                        $course_add->courseid = $result->id;
+                                        $course_add->coursestats_category_id = $id;
+                                        $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                    }
+                                }
+                            }
                             // Fetch courses that start with a specific name
                         } elseif (strrpos($course, '%') === strlen($course) - 1) {
                             $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
@@ -107,6 +164,23 @@ function processCustomConfig($configuration)
                                 $course_add->courseid = $result->id;
                                 $course_add->coursestats_category_id = $id;
                                 $DB->insert_record('report_coursestatsv2_course', $course_add);
+                            }
+                            if($filhas){
+                                $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                                $params = ['code' => $code];
+                                $cat_ids = $DB->get_records_sql($query, $params);
+                                foreach($cat_ids as $cat_id){
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $params = ['cat' => $cat_id->id, 'course' => $course];
+                                    $results = $DB->get_records_sql($query, $params);
+                                    foreach ($results as $result) {
+                                        $course_add = new stdClass();
+                                        $course_add->name = $result->shortname;
+                                        $course_add->courseid = $result->id;
+                                        $course_add->coursestats_category_id = $id;
+                                        $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                    }
+                                }
                             }
                         }
                     }
@@ -121,6 +195,23 @@ function processCustomConfig($configuration)
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestatsv2_course', $course_add);
+                        }
+                        if($filhas){
+                            $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                            $params = ['code' => $code];
+                            $cat_ids = $DB->get_records_sql($query, $params);
+                            foreach($cat_ids as $cat_id){
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $params = ['cat' => $cat_id->id, 'course' => $course];
+                                $result = $DB->get_record_sql($query, $params);
+                                if($result) {
+                                    $course_add = new stdClass();
+                                    $course_add->name = $result->shortname;
+                                    $course_add->courseid = $result->id;
+                                    $course_add->coursestats_category_id = $id;
+                                    $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                }
+                            }
                         }
                     }
                 }
@@ -141,6 +232,23 @@ function processCustomConfig($configuration)
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
+                        if($filhas){
+                            $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                            $params = ['code' => $code];
+                            $cat_ids = $DB->get_records_sql($query, $params);
+                            foreach($cat_ids as $cat_id){
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $params = ['cat' => $cat_id->id, 'course' => $course];
+                                $results = $DB->get_records_sql($query, $params);
+                                foreach ($results as $result) {
+                                    $course_add = new stdClass();
+                                    $course_add->name = $result->shortname;
+                                    $course_add->courseid = $result->id;
+                                    $course_add->coursestats_category_id = $id;
+                                    $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                }
+                            }
+                        }
                     } elseif (strpos($filters, '%') === 0) {
                         $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
                         $params = ['code' => $code, 'course' => $course];
@@ -151,6 +259,23 @@ function processCustomConfig($configuration)
                             $course_add->courseid = $result->id;
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestatsv2_course', $course_add);
+                        }
+                        if($filhas){
+                            $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                            $params = ['code' => $code];
+                            $cat_ids = $DB->get_records_sql($query, $params);
+                            foreach($cat_ids as $cat_id){
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $params = ['cat' => $cat_id->id, 'course' => $course];
+                                $results = $DB->get_records_sql($query, $params);
+                                foreach ($results as $result) {
+                                    $course_add = new stdClass();
+                                    $course_add->name = $result->shortname;
+                                    $course_add->courseid = $result->id;
+                                    $course_add->coursestats_category_id = $id;
+                                    $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                }
+                            }
                         }
                     } elseif (strrpos($filters, '%') === strlen($filters) - 1) {
                         $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
@@ -163,6 +288,23 @@ function processCustomConfig($configuration)
                             $course_add->coursestats_category_id = $id;
                             $DB->insert_record('report_coursestatsv2_course', $course_add);
                         }
+                        if($filhas){
+                            $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                            $params = ['code' => $code];
+                            $cat_ids = $DB->get_records_sql($query, $params);
+                            foreach($cat_ids as $cat_id){
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $params = ['cat' => $cat_id->id, 'course' => $course];
+                                $results = $DB->get_records_sql($query, $params);
+                                foreach ($results as $result) {
+                                    $course_add = new stdClass();
+                                    $course_add->name = $result->shortname;
+                                    $course_add->courseid = $result->id;
+                                    $course_add->coursestats_category_id = $id;
+                                    $DB->insert_record('report_coursestatsv2_course', $course_add);
+                                }
+                            }
+                        }
                     }
                 } else {
                     $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname = :filters";
@@ -174,6 +316,23 @@ function processCustomConfig($configuration)
                         $course_add->courseid = $result->id;
                         $course_add->coursestats_category_id = $id;
                         $DB->insert_record('report_coursestatsv2_course', $course_add);
+                    }
+                    if($filhas){
+                        $query = "SELECT id FROM {course_categories} WHERE visible = 1 and parent = :code";
+                        $params = ['code' => $code];
+                        $cat_ids = $DB->get_records_sql($query, $params);
+                        foreach($cat_ids as $cat_id){
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :filters";
+                            $params = ['cat' => $cat_id->id, 'course' => $filters];
+                            $result = $DB->get_records_sql($query, $params);
+                            if($result) {
+                                $course_add = new stdClass();
+                                $course_add->name = $result->shortname;
+                                $course_add->courseid = $result->id;
+                                $course_add->coursestats_category_id = $id;
+                                $DB->insert_record('report_coursestatsv2_course', $course_add);
+                            }
+                        }
                     }
                 }
             }
