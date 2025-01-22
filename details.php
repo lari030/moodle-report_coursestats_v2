@@ -94,6 +94,28 @@ $query2 = "SELECT M.name, M.id, COUNT(CM.id) AS amount
 $param = ['category' => $categoryid];
 $data = $DB->get_records_sql($query2, $param);
 
+if (class_exists('core\chart_pie')) {
+    $chart = new core\chart_pie();
+    $chart->set_title(get_string('usagestats', 'report_coursestats_v2'));
+
+    $labels = [
+        get_string('usageForum', 'report_coursestats_v2'),
+        get_string('usageRepository', 'report_coursestats_v2'),
+        get_string('usageActivity', 'report_coursestats_v2'),
+    ];
+
+    $data = [$percentageForum, $percentageRepository, $percentageActivity];
+
+    $serie = new core\chart_series(get_string('usagestats', 'report_coursestats_v2'), $data);
+    $chart->add_series($serie);
+    $chart->set_labels($labels);
+
+    echo $OUTPUT->render_chart($chart, false);
+
+    echo $OUTPUT->footer();
+    var_dump($chart);
+}
+
 // Segunda tabela: Módulos
 echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  $modules_table = new html_table();
