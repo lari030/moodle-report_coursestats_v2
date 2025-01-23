@@ -108,7 +108,6 @@ if (class_exists('core\chart_pie')) {
     );
 
     echo $OUTPUT->render_chart($chart, false);
-
 }
 
 // Segunda tabela: Módulos
@@ -134,5 +133,27 @@ echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  
 
 echo html_writer::table($modules_table);
+
+
+if (class_exists('core\chart_bar')) {
+    $chart = new core\chart_bar();
+    
+    $labels = [];
+    $values = [];
+    
+    foreach ($data as $item) {
+        $labels[] = $item->name;
+        $values[] = round(($item->amount / $allCoursesUsage) * 100, 2); 
+    }
+
+    $series = new core\chart_series(get_string('modulesusagepercentage', 'report_coursestats_v2'), $values);
+
+    $chart->set_labels($labels);
+    $chart->add_series($series);
+    $chart->get_xaxis(0, true)->set_label(get_string('modules', 'report_coursestats_v2'));
+    $chart->get_yaxis(0, true)->set_label(get_string('percentageUse', 'report_coursestats_v2'));
+
+    echo $OUTPUT->render_chart($chart, false);
+}
 
 echo $OUTPUT->footer();

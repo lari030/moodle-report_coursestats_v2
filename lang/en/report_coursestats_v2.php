@@ -45,3 +45,5 @@ $string['unusedCourses'] = 'Amount of unused courses';
 $string['amount'] = 'Amount';
 $string['exporttocsv'] = 'Export to CSV';
 $string['usagestats'] = 'Usage statistics';
+$string['modulesusagepercentage'] = 'Modules usage percentage';
+$string['percentageUse'] = 'Percentage of courses that use'; 
