@@ -107,6 +107,26 @@ foreach ($categories as $category) {
     ];
 }
 
+if(class_exists('core\chart_bar')) {
+    $chart = new core\chart_bar();
+    
+    $labels = [];
+    $values = [];
+    
+    foreach ($data as $item) {
+        $labels[] = $item->name;
+        $values[] = round(($item->amount / $usage_rate) * 100, 2); 
+    }
+
+    $series = new core\chart_series(get_string('usagerate', 'report_coursestats_v2'), $values);
+
+    $chart->set_labels($labels);
+    $chart->add_series($series);
+    $chart->get_xaxis(0, true)->set_label(get_string('category', 'report_coursestats_v2'));
+    $chart->get_yaxis(0, true)->set_label(get_string('usagerate', 'report_coursestats_v2'));
+
+    echo $OUTPUT->render_chart($chart, false);
+}
 // Retorna a tabela gerada
 echo html_writer::table($table);
 
