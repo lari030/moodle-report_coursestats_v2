@@ -60,7 +60,10 @@ class report_coursestats_v2_observer {
 		$record = new stdClass();
  		$record->courseid = $event->courseid;
  		$record->moduleid = $moduleid;
- 		$DB->insert_record(PLUGIN_MODULES_TABLE_NAME_V2, $record);
+
+		if (!$DB->record_exists(PLUGIN_MODULES_TABLE_NAME_V2, array('courseid'=>$event->courseid, 'moduleid'=>$moduleid))) {
+			$DB->insert_record(PLUGIN_MODULES_TABLE_NAME_V2, $record);
+		}
 
 		/* 
 		* If the module name is 'url', 'folder' or 'resource', then the usage type is 'repository'.
