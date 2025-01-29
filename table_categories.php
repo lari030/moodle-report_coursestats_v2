@@ -55,6 +55,8 @@ $table->head = [
     get_string('usagerate', 'report_coursestats_v2')
 ];
 
+$category_index = 1;
+
 // Preenchendo as linhas da tabela com os dados reais
 foreach ($categories as $category) {
 
@@ -92,9 +94,9 @@ foreach ($categories as $category) {
         format_string($unused_courses)
     );
 
-    $labels[] = $item->name;
-
-    $values[] = $usage_rate > 0 ? round(($item->amount / $usage_rate) * 100, 2) : 0; 
+    $labels[] = $category_index;
+    $values[] = $usage_rate;
+    $category_index++;
 
     // Preenchendo os dados da tabela
     $table->data[] = [
@@ -123,7 +125,7 @@ echo html_writer::link(
     new moodle_url('/report/coursestats_v2/csvgen.php'),
     get_string('exporttocsv', 'report_coursestats_v2'),
 );
-html_writer::end_div();
+echo html_writer::end_div();
 
 // Retorna a tabela gerada
 echo html_writer::table($table);
