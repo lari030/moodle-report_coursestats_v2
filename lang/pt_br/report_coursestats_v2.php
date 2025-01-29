@@ -46,4 +46,5 @@ $string['amount'] = 'Total';
 $string['exporttocsv'] = 'Exportar para CSV';
 $string['usagestats'] = 'Estatísticas de uso';
 $string['modulesusagepercentage'] = 'Porcentagem de uso dos módulos';
-$string['percentageUse'] = 'Porcentagem de cursos que utilizam'; 
+$string['percentageUse'] = 'Porcentagem de cursos que utilizam';
+$string['update'] = 'Atualizar lista de categorias';

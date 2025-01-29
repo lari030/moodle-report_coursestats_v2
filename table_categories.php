@@ -122,6 +122,13 @@ if(class_exists('core\chart_bar')) {
 
 echo html_writer::start_div('text-center');
 echo html_writer::link(
+    new moodle_url('/report/coursestats_v2/index.php'),
+    get_string('update', 'report_coursestats_v2'),
+);
+
+echo '  |  ';
+
+echo html_writer::link(
     new moodle_url('/report/coursestats_v2/csvgen.php'),
     get_string('exporttocsv', 'report_coursestats_v2'),
 );
