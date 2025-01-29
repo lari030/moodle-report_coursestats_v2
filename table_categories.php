@@ -42,14 +42,6 @@ $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
 
 $categories = $DB->get_records_sql($sql);
 
-
-echo html_writer::start_div('text-center');
-echo html_writer::link(
-    new moodle_url('/report/coursestats_v2/csvgen.php'),
-    get_string('exporttocsv', 'report_coursestats_v2'),
-);
-html_writer::end_div();
-
 // Criação da tabela principal com categorias reais e cursos criados
 $table = new html_table();
 $table->head = [
@@ -72,7 +64,7 @@ foreach ($categories as $category) {
     
 
     // Calculando a taxa de utilização (evita divisão por zero)
-    $usage_rate = $category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) . '%' : '-';
+    $usage_rate = $category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) : 0;
     $unused_courses = $category->coursecount - $used_course_count;
 
     // Link para a página details.php
@@ -127,6 +119,14 @@ if(class_exists('core\chart_bar')) {
 
     echo $OUTPUT->render_chart($chart, false);
 }
+
+echo html_writer::start_div('text-center');
+echo html_writer::link(
+    new moodle_url('/report/coursestats_v2/csvgen.php'),
+    get_string('exporttocsv', 'report_coursestats_v2'),
+);
+html_writer::end_div();
+
 // Retorna a tabela gerada
 echo html_writer::table($table);
 
