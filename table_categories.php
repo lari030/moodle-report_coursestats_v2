@@ -75,7 +75,7 @@ foreach ($categories as $category) {
     // Link para a página details.php
     $link = html_writer::link(
         new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $category->id]),
-        format_string($category->categoryname)
+        $category_index . ' - ' . format_string($category->categoryname)
     );
 
     //Link para a página de cursos criados
