@@ -33,6 +33,9 @@ echo $OUTPUT->header();
 // Certifique-se de que este arquivo não seja acessado diretamente
 defined('MOODLE_INTERNAL') || die();
 
+$labels = [];
+$values = [];
+
 // Consulta usando a Data Manipulation API do Moodle para obter as categorias e cursos criados
 $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
         FROM {report_coursestatsv2_cat} cc
@@ -89,6 +92,10 @@ foreach ($categories as $category) {
         format_string($unused_courses)
     );
 
+    $labels[] = $item->name;
+
+    $values[] = $usage_rate > 0 ? round(($item->amount / $usage_rate) * 100, 2) : 0; 
+
     // Preenchendo os dados da tabela
     $table->data[] = [
         $link,                    // Nome da Categoria com link para a página de detalhes
@@ -101,15 +108,6 @@ foreach ($categories as $category) {
 
 if(class_exists('core\chart_bar')) {
     $chart = new core\chart_bar();
-    
-    $labels = [];
-    $values = [];
-    
-    foreach ($data as $item) {
-        $labels[] = $item->name;
-        $values[] = round(($item->amount / $usage_rate) * 100, 2); 
-    }
-
     $series = new core\chart_series(get_string('usagerate', 'report_coursestats_v2'), $values);
 
     $chart->set_labels($labels);
