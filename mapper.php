@@ -27,6 +27,10 @@ function processCustomConfig($configuration)
     global $DB;
     global $id;
 
+    //Checking which database is being used to change the LIKE operator
+    $dbtype = $DB->get_dbfamily();
+    $like_operator = ($dbtype === 'postgres') ? 'ILIKE' : 'LIKE';
+
     // Split the new lines into an array, the explode function is used for this
     $lines = explode("\n", trim($configuration));
 
@@ -38,7 +42,6 @@ function processCustomConfig($configuration)
         // The trim function removes spaces from the beginning and end of the line
         $line = trim($line);
         $filhas = false;
-        //echo $filhas;
 
         // Check to determine if it is a category or a filter for the courses to be fetched
         if (strpos($line, ':') !== false && trim(substr($line, strpos($line, ':') + 1)) === '') {
@@ -53,7 +56,9 @@ function processCustomConfig($configuration)
             // The list function assigns each variable a value from the passed array
             list($code, $filters) = explode(':', $line);
             $code = trim($code);
+            $code = str_replace("+", "", $code);
             $filters = trim($filters);
+            
 
             // Check if all courses are requested
             if ($filters == '*') {
@@ -97,7 +102,7 @@ function processCustomConfig($configuration)
                     if (strpos($course, '%') !== false) {
                         // Fetch courses containing a specific name
                         if (strpos($course, '%') === 0 && strrpos($course, '%') === strlen($course) - 1) {
-                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                             $params = ['code' => $code, 'course' => $course];
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
@@ -112,7 +117,7 @@ function processCustomConfig($configuration)
                                 $params = ['code' => $code];
                                 $cat_ids = $DB->get_records_sql($query, $params);
                                 foreach($cat_ids as $cat_id){
-                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                     $params = ['cat' => $cat_id->id, 'course' => $course];
                                     $results = $DB->get_records_sql($query, $params);
                                     foreach ($results as $result) {
@@ -126,7 +131,7 @@ function processCustomConfig($configuration)
                             }
                             // Fetch courses that end with a specific name
                         } elseif (strpos($course, '%') === 0) {
-                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                             $params = ['code' => $code, 'course' => $course];
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
@@ -141,7 +146,7 @@ function processCustomConfig($configuration)
                                 $params = ['code' => $code];
                                 $cat_ids = $DB->get_records_sql($query, $params);
                                 foreach($cat_ids as $cat_id){
-                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                     $params = ['cat' => $cat_id->id, 'course' => $course];
                                     $results = $DB->get_records_sql($query, $params);
                                     foreach ($results as $result) {
@@ -155,7 +160,7 @@ function processCustomConfig($configuration)
                             }
                             // Fetch courses that start with a specific name
                         } elseif (strrpos($course, '%') === strlen($course) - 1) {
-                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                             $params = ['code' => $code, 'course' => $course];
                             $results = $DB->get_records_sql($query, $params);
                             foreach ($results as $result) {
@@ -170,7 +175,7 @@ function processCustomConfig($configuration)
                                 $params = ['code' => $code];
                                 $cat_ids = $DB->get_records_sql($query, $params);
                                 foreach($cat_ids as $cat_id){
-                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                     $params = ['cat' => $cat_id->id, 'course' => $course];
                                     $results = $DB->get_records_sql($query, $params);
                                     foreach ($results as $result) {
@@ -186,7 +191,7 @@ function processCustomConfig($configuration)
                     }
                     // Fetch a specific course
                     else {
-                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                         $params = ['code' => $code, 'course' => $course];
                         $result = $DB->get_record_sql($query, $params);
                         if ($result) { // Check if result exists before accessing properties
@@ -201,7 +206,7 @@ function processCustomConfig($configuration)
                             $params = ['code' => $code];
                             $cat_ids = $DB->get_records_sql($query, $params);
                             foreach($cat_ids as $cat_id){
-                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                 $params = ['cat' => $cat_id->id, 'course' => $course];
                                 $result = $DB->get_record_sql($query, $params);
                                 if($result) {
@@ -222,7 +227,7 @@ function processCustomConfig($configuration)
                     $course = $filters;
                     $course = trim($course);
                     if (strpos($filters, '%') === 0 && strrpos($filters, '%') === strlen($filters) - 1) {
-                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                         $params = ['code' => $code, 'course' => $course];
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
@@ -237,7 +242,7 @@ function processCustomConfig($configuration)
                             $params = ['code' => $code];
                             $cat_ids = $DB->get_records_sql($query, $params);
                             foreach($cat_ids as $cat_id){
-                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                 $params = ['cat' => $cat_id->id, 'course' => $course];
                                 $results = $DB->get_records_sql($query, $params);
                                 foreach ($results as $result) {
@@ -250,7 +255,7 @@ function processCustomConfig($configuration)
                             }
                         }
                     } elseif (strpos($filters, '%') === 0) {
-                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                         $params = ['code' => $code, 'course' => $course];
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
@@ -265,7 +270,7 @@ function processCustomConfig($configuration)
                             $params = ['code' => $code];
                             $cat_ids = $DB->get_records_sql($query, $params);
                             foreach($cat_ids as $cat_id){
-                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                 $params = ['cat' => $cat_id->id, 'course' => $course];
                                 $results = $DB->get_records_sql($query, $params);
                                 foreach ($results as $result) {
@@ -278,7 +283,7 @@ function processCustomConfig($configuration)
                             }
                         }
                     } elseif (strrpos($filters, '%') === strlen($filters) - 1) {
-                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname LIKE :course";
+                        $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
                         $params = ['code' => $code, 'course' => $course];
                         $results = $DB->get_records_sql($query, $params);
                         foreach ($results as $result) {
@@ -293,7 +298,7 @@ function processCustomConfig($configuration)
                             $params = ['code' => $code];
                             $cat_ids = $DB->get_records_sql($query, $params);
                             foreach($cat_ids as $cat_id){
-                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :course";
+                                $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                                 $params = ['cat' => $cat_id->id, 'course' => $course];
                                 $results = $DB->get_records_sql($query, $params);
                                 foreach ($results as $result) {
@@ -307,8 +312,8 @@ function processCustomConfig($configuration)
                         }
                     }
                 } else {
-                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname = :filters";
-                    $params = ['code' => $code, 'filters' => $filters];
+                    $query = "SELECT * FROM {course} WHERE visible = 1 and category = :code and shortname $like_operator :course";
+                    $params = ['code' => $code, 'course' => $filters];
                     $result = $DB->get_record_sql($query, $params);
                     if ($result) { // Check if result exists before accessing properties
                         $course_add = new stdClass();
@@ -322,9 +327,9 @@ function processCustomConfig($configuration)
                         $params = ['code' => $code];
                         $cat_ids = $DB->get_records_sql($query, $params);
                         foreach($cat_ids as $cat_id){
-                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname LIKE :filters";
+                            $query = "SELECT * FROM {course} WHERE visible = 1 and category = :cat and shortname $like_operator :course";
                             $params = ['cat' => $cat_id->id, 'course' => $filters];
-                            $result = $DB->get_records_sql($query, $params);
+                            $result = $DB->get_record_sql($query, $params);
                             if($result) {
                                 $course_add = new stdClass();
                                 $course_add->name = $result->shortname;
