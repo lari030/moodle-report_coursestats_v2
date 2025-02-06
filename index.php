@@ -26,7 +26,7 @@ require_once($CFG->libdir . '/adminlib.php');
 require_once('mapper.php');
 
 
-//função principal que vai processar a entrada
+//main function that will process the input
 
 
 admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout' => 'report'));

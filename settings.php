@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    // Adiciona o link para o relatório na seção de Relatórios.
+   // Add the link to the report in the Reports section.
     $ADMIN->add('reports', new admin_externalpage(
         'reportcoursestatsv2',
         get_string('pluginname', 'report_coursestats_v2'),
@@ -32,7 +32,7 @@ if ($hassiteconfig) {
         'moodle/site:config'
     ));
 
-    // Adiciona a configuração do plugin.
+// Add plugin configuration.
     $settings = new admin_settingpage('report_coursestats_v2', get_string('coursestatsv2_settings', 'report_coursestats_v2'));
 
     $settings->add(new admin_setting_configtextarea(

@@ -24,16 +24,16 @@
 require(dirname(__FILE__) . '/../../config.php');
 require_login();
 
-// Certifique-se de que este arquivo não seja acessado diretamente
+//Make sure this file is not directly accessed
 defined('MOODLE_INTERNAL') || die();
 
-// Configuração de cabeçalhos para exportação do CSV
+// Header configuration for CSV export
 header('Content-Type: application/excel');
 header('Content-Disposition: attachment; filename="sample.csv"');
 
 $fp = fopen('php://output', 'w');
 
-// Cabeçalho da tabela no CSV
+// Table header in CSV
 $headers = [
     get_string('category', 'report_coursestats_v2'),
     get_string('coursescreated', 'report_coursestats_v2'),
@@ -42,7 +42,7 @@ $headers = [
 ];
 fputcsv($fp, $headers);
 
-// Consulta usando a Data Manipulation API do Moodle para obter as categorias e cursos criados
+// Query using Moodle's Data Manipulation API to obtain the created categories and courses
 $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
         FROM {report_coursestatsv2_cat} cc
         LEFT JOIN {report_coursestatsv2_course} c ON c.coursestats_category_id = cc.id
@@ -51,18 +51,18 @@ $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
 
 $categories = $DB->get_records_sql($sql);
 
-foreach ($categories as $category) {
-    // Consulta para obter a quantidade de cursos utilizados na categoria
+foreach ($categories as $category) { 
+    // Query to obtain the number of courses used in the category
     $used_courses_sql = "SELECT COUNT(*)
                          FROM {report_coursestatsv2_course} rcc
                          JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
                          WHERE rcc.coursestats_category_id = :categoryid";
     $used_course_count = $DB->count_records_sql($used_courses_sql, ['categoryid' => $category->id]);
 
-    // Calculando a taxa de utilização e cursos não utilizados
+    // Calculating usage rate and unused courses
     $unused_courses = $category->coursecount - $used_course_count;
 
-    // Adicionando os dados ao CSV
+    // Adding the data in CSV
     $row = [
         $category->categoryname, 
         $category->coursecount,  

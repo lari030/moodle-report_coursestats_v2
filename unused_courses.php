@@ -33,10 +33,10 @@ echo '<style>
     }
 </style>';
 
-// Obtém o ID da categoria a partir da URL
+// Get the category ID from the URL
 $categoryid = required_param('categoryid', PARAM_INT);
 
-// Consulta o nome da categoria a partir do ID
+// Query the category name from the ID
 $categoryname = $DB->get_field('report_coursestatsv2_cat', 'name', ['id' => $categoryid], MUST_EXIST);
 
 $PAGE->set_url(new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $categoryid]));
@@ -46,8 +46,8 @@ $PAGE->set_heading(get_string('unusedCourses', 'report_coursestats_v2'));
 
 echo $OUTPUT->header();
 
-// Exibe o nome da categoria no topo
-// Link para voltar à página anterior (index.php)
+// Display the category name at the top
+// Link to return to the previous page (index.php)
 $back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
 $sql = "SELECT rcc.* FROM {report_coursestatsv2_course} rcc 

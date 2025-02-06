@@ -30,13 +30,13 @@ admin_externalpage_setup('reportcoursestatsv2', '', null, '', array('pagelayout'
 
 echo $OUTPUT->header();
 
-// Certifique-se de que este arquivo não seja acessado diretamente
+// Make sure this file is not accessed directly
 defined('MOODLE_INTERNAL') || die();
 
 $labels = [];
 $values = [];
 
-// Consulta usando a Data Manipulation API do Moodle para obter as categorias e cursos criados
+// Query using Moodle's Data Manipulation API to obtain the created categories and courses
 $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
         FROM {report_coursestatsv2_cat} cc
         LEFT JOIN {report_coursestatsv2_course} c ON c.coursestats_category_id = cc.id
@@ -45,7 +45,7 @@ $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
 
 $categories = $DB->get_records_sql($sql);
 
-// Criação da tabela principal com categorias reais e cursos criados
+// Creation of the main table with real categories and created courses
 $table = new html_table();
 $table->head = [
     get_string('category', 'report_coursestats_v2'),
@@ -57,10 +57,10 @@ $table->head = [
 
 $category_index = 1;
 
-// Preenchendo as linhas da tabela com os dados reais
+// Filling the table rows with actual data
 foreach ($categories as $category) {
 
-    // Consulta para obter a quantidade de cursos utilizados na categoria
+    // Query to obtain the number of courses used in the category
     $used_courses_sql = "SELECT COUNT(*)
                          FROM {report_coursestatsv2_course} rcc
                          JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
@@ -68,27 +68,30 @@ foreach ($categories as $category) {
     $used_course_count = $DB->count_records_sql($used_courses_sql, ['categoryid' => $category->id]);
     
 
-    // Calculando a taxa de utilização (evita divisão por zero)
+    // Calculating the utilization rate (avoids division by zero)
     $usage_rate = $category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) : 0;
     $unused_courses = $category->coursecount - $used_course_count;
 
-    // Link para a página details.php
+    // Link to details.php page
     $link = html_writer::link(
         new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $category->id]),
         $category_index . ' - ' . format_string($category->categoryname)
     );
 
-    //Link para a página de cursos criados
+
+    //Link to the created courses page
     $link2 = html_writer::link(
         new moodle_url('/report/coursestats_v2/created_courses.php', ['categoryid' => $category->id]),
         format_string($category->coursecount)
     );
 
+    //Link to the used courses page
     $link3 = html_writer::link(
         new moodle_url('/report/coursestats_v2/used_courses.php', ['categoryid' => $category->id]),
         format_string($used_course_count)
     );
 
+    //Link to the unused courses page
     $link4 = html_writer::link(
         new moodle_url('/report/coursestats_v2/unused_courses.php', ['categoryid' => $category->id]),
         format_string($unused_courses)
@@ -98,13 +101,13 @@ foreach ($categories as $category) {
     $values[] = $usage_rate;
     $category_index++;
 
-    // Preenchendo os dados da tabela
+    // Filling in the table data
     $table->data[] = [
-        $link,                    // Nome da Categoria com link para a página de detalhes
-        $link2,         // Quantidade de Cursos Criados
-        $link3,       // Quantidade de Cursos Utilizados
-        $link4,
-        $usage_rate               // Taxa de Utilização em %
+        $link,                    // Category name with link to details page
+        $link2,                  // Number of Courses Created
+        $link3,                 // Number of Courses Used
+        $link4,                // Number of Unused Courses
+        $usage_rate           // Usage Rate in %
     ];
 }
 
@@ -134,7 +137,7 @@ echo html_writer::link(
 );
 echo html_writer::end_div();
 
-// Retorna a tabela gerada
+// Returns the generated table
 echo html_writer::table($table);
 
 echo $OUTPUT->footer();

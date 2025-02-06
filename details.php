@@ -24,10 +24,10 @@
 
 require_once('../../config.php');
 
-// Obtém o ID da categoria a partir da URL
+// Get the category ID from the URL
 $categoryid = required_param('categoryid', PARAM_INT);
 
-// Consulta o nome da categoria a partir do ID
+// Query the category name from the ID
 $categoryname = $DB->get_field('report_coursestatsv2_cat', 'name', ['id' => $categoryid], MUST_EXIST);
 
 $PAGE->set_url(new moodle_url('/report/coursestats_v2/details.php', ['categoryid' => $categoryid]));
@@ -36,8 +36,8 @@ $PAGE->set_title(get_string('categorydetails', 'report_coursestats_v2'));
 
 echo $OUTPUT->header();
 
-// Exibe o nome da categoria no topo
-// Link para voltar à página anterior (index.php)
+// Display the category name at the top
+// Link to return to the previous page (index.php)
 $back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
 $query1 = "SELECT count(*) AS amount FROM {report_coursestatsv2_course} 
@@ -62,7 +62,7 @@ $percentageRepository = $repository->amount > 0 ? round(($repository->amount / $
 
 $percentageActivity = $activity->amount > 0 ? round(($activity->amount / $allCoursesUsage) * 100, 2) : 0; 
 
-// Primeira tabela: Tipos de Uso
+// First table: Types of Use
 echo $OUTPUT->heading($categoryname . ' (' . $back . ')', 4, 'text-center');
 echo $OUTPUT->heading(get_string('categorydetails', 'report_coursestats_v2'));
 
@@ -73,7 +73,6 @@ $usage_table->head = [
     get_string('percentage', 'report_coursestats_v2')
 ];
 
-// Dados fictícios 
 $usage_table->data[] = [get_string('usageForum', 'report_coursestats_v2'), $forum->amount, $percentageForum];
 $usage_table->data[] = [get_string('usageRepository', 'report_coursestats_v2'), $repository->amount, $percentageRepository];
 $usage_table->data[] = [get_string('usageActivity', 'report_coursestats_v2'), $activity->amount, $percentageActivity];
@@ -110,7 +109,7 @@ if (class_exists('core\chart_pie')) {
     echo $OUTPUT->render_chart($chart, false);
 }
 
-// Segunda tabela: Módulos
+// Second table: Modules   
 echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  $modules_table = new html_table();
  $modules_table->head = [
