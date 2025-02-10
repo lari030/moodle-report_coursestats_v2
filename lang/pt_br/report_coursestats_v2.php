@@ -32,6 +32,7 @@ $string['coursesused'] = 'Quantidade de cursos utilizados';
 $string['usagerate'] = 'Taxa de utilização';
 $string['categorydetails'] = 'Estatísticas de uso';
 $string['modulesdetails'] = 'Módulos utilizados';
+$string['modulesdetailsinfo'] = 'Cursos cujo tipo de uso é "Fórum" não entram na estatística de módulos utilizados';
 $string['backtocategories'] = 'Voltar';
 $string['usagetype'] = 'Tipo de uso';
 $string['usageForum'] = 'Fórum';

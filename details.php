@@ -55,6 +55,7 @@ $repository = $DB->get_record_sql($query1, $params2);
 $activity = $DB->get_record_sql($query1, $params3);
 
 $allCoursesUsage = $forum->amount + $repository->amount + $activity->amount;
+$allRepositoryAndActivityCourses = $repository->amount + $activity->amount;
 
 $percentageForum = $forum->amount > 0 ? round(($forum->amount / $allCoursesUsage) * 100, 2) : 0; 
 
@@ -111,6 +112,8 @@ if (class_exists('core\chart_pie')) {
 
 // Second table: Modules   
 echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
+echo $OUTPUT->paragraph(get_string('modulesdetailsinfo', 'report_coursestats_v2'));
+
  $modules_table = new html_table();
  $modules_table->head = [
     get_string('modules', 'report_coursestats_v2'),
@@ -121,7 +124,7 @@ echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
  foreach ($data as $item) {
     $row = array();
 
-    $percent = $item->amount > 0 ? round(($item->amount / $allCoursesUsage) * 100, 2) : 0; 
+    $percent = $item->amount > 0 ? round(($item->amount / $allRepositoryAndActivityCourses) * 100, 2) : 0; 
 
     $row[] = $item->name;
     $row[] = $item->amount;
@@ -142,7 +145,7 @@ if (class_exists('core\chart_bar')) {
     
     foreach ($data as $item) {
         $labels[] = $item->name;
-        $values[] = round(($item->amount / $allCoursesUsage) * 100, 2); 
+        $values[] = round(($item->amount / $allRepositoryAndActivityCourses) * 100, 2); 
     }
 
     $series = new core\chart_series(get_string('modulesusagepercentage', 'report_coursestats_v2'), $values);

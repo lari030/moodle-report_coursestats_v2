@@ -32,6 +32,7 @@ $string['coursesused'] = 'Amount of used courses';
 $string['usagerate'] = 'Usage rate';
 $string['categorydetails'] = 'Usage statistics';
 $string['modulesdetails'] = 'Used modules';
+$string['modulesdetailsinfo'] = 'Courses whose usage type is "Forum" are not considered in the statistics of used modules';
 $string['backtocategories'] = 'Back';
 $string['usagetype'] = 'Usage type';
 $string['usageForum'] = 'Forum';
