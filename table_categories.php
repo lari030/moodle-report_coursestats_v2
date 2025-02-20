@@ -69,7 +69,7 @@ foreach ($categories as $category) {
     
 
     // Calculating the utilization rate (avoids division by zero)
-    $usage_rate = ($category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) : 0) . "%";
+    $usage_rate = ($category->coursecount > 0 ? round(($used_course_count / $category->coursecount) * 100, 2) : 0);
     $unused_courses = $category->coursecount - $used_course_count;
 
     // Link to details.php page
@@ -107,7 +107,7 @@ foreach ($categories as $category) {
         $link2,                  // Number of Courses Created
         $link3,                 // Number of Courses Used
         $link4,                // Number of Unused Courses
-        $usage_rate           // Usage Rate in %
+        $usage_rate."%"           // Usage Rate in %
     ];
 }
 
@@ -141,5 +141,3 @@ echo html_writer::end_div();
 echo html_writer::table($table);
 
 echo $OUTPUT->footer();
-
-

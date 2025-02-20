@@ -57,11 +57,11 @@ $activity = $DB->get_record_sql($query1, $params3);
 $allCoursesUsage = $forum->amount + $repository->amount + $activity->amount;
 $allRepositoryAndActivityCourses = $repository->amount + $activity->amount;
 
-$percentageForum = ($forum->amount > 0 ? round(($forum->amount / $allCoursesUsage) * 100, 2) : 0) . "%"; 
+$percentageForum = ($forum->amount > 0 ? round(($forum->amount / $allCoursesUsage) * 100, 2) : 0); 
 
-$percentageRepository = ($repository->amount > 0 ? round(($repository->amount / $allCoursesUsage) * 100, 2) : 0) . "%"; 
+$percentageRepository = ($repository->amount > 0 ? round(($repository->amount / $allCoursesUsage) * 100, 2) : 0); 
 
-$percentageActivity = ($activity->amount > 0 ? round(($activity->amount / $allCoursesUsage) * 100, 2) : 0) . "%"; 
+$percentageActivity = ($activity->amount > 0 ? round(($activity->amount / $allCoursesUsage) * 100, 2) : 0); 
 
 // First table: Types of Use
 echo $OUTPUT->heading($categoryname . ' (' . $back . ')', 4, 'text-center');
@@ -74,9 +74,9 @@ $usage_table->head = [
     get_string('usagerate', 'report_coursestats_v2')
 ];
 
-$usage_table->data[] = [get_string('usageForum', 'report_coursestats_v2'), $forum->amount, $percentageForum];
-$usage_table->data[] = [get_string('usageRepository', 'report_coursestats_v2'), $repository->amount, $percentageRepository];
-$usage_table->data[] = [get_string('usageActivity', 'report_coursestats_v2'), $activity->amount, $percentageActivity];
+$usage_table->data[] = [get_string('usageForum', 'report_coursestats_v2'), $forum->amount, $percentageForum."%"];
+$usage_table->data[] = [get_string('usageRepository', 'report_coursestats_v2'), $repository->amount, $percentageRepository."%"];
+$usage_table->data[] = [get_string('usageActivity', 'report_coursestats_v2'), $activity->amount, $percentageActivity."%"];
 $usage_table->data[] = [html_writer::tag('strong', get_string('amount', 'report_coursestats_v2')),
                         html_writer::tag('strong', $allCoursesUsage),
                         html_writer::tag('strong', ($allCoursesUsage > 0 ? 100 : 0) . "%")];
@@ -125,12 +125,12 @@ echo $OUTPUT->paragraph(get_string('modulesdetailsinfo', 'report_coursestats_v2'
     $row = array();
 
     if($allRepositoryAndActivityCourses > 0){
-    $percent = ($item->amount > 0 ? round(($item->amount / $allRepositoryAndActivityCourses) * 100, 2) : 0) . "%";
+    $percent = ($item->amount > 0 ? round(($item->amount / $allRepositoryAndActivityCourses) * 100, 2) : 0);
     }
 
     $row[] = $item->name;
     $row[] = $item->amount;
-    $row[] = $percent;
+    $row[] = $percent."%";
 
     $modules_table->data[] = $row;
 }
