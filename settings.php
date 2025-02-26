@@ -45,5 +45,13 @@ if ($hassiteconfig) {
         10
     ));
 
+   // Add checkbox setting for sorting categories by name.
+   $settings->add(new admin_setting_configcheckbox(
+    'report_coursestats_v2/sortcategoriesbyname',
+    get_string('sortcategories', 'report_coursestats_v2'),
+    get_string('sortcategoriesdesc', 'report_coursestats_v2'),
+    0 // Default value (false)
+    ));
+
     $ADMIN->add('reports', $settings);
 }

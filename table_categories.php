@@ -33,6 +33,9 @@ echo $OUTPUT->header();
 // Make sure this file is not accessed directly
 defined('MOODLE_INTERNAL') || die();
 
+$sort = $customcatnames = get_config('report_coursestats_v2', 'sortcategoriesbyname');
+$sort = $short == 0 ? "cc.name" : "cc.id";
+
 $labels = [];
 $values = [];
 
@@ -41,7 +44,7 @@ $sql = "SELECT cc.id, cc.name AS categoryname, COUNT(c.id) AS coursecount
         FROM {report_coursestatsv2_cat} cc
         LEFT JOIN {report_coursestatsv2_course} c ON c.coursestats_category_id = cc.id
         GROUP BY cc.id, cc.name
-        ORDER BY cc.name";
+        ORDER BY $sort";
 
 $categories = $DB->get_records_sql($sql);
 

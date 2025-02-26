@@ -49,3 +49,5 @@ $string['usagestats'] = 'Usage statistics';
 $string['modulesusagepercentage'] = 'Modules usage percentage';
 $string['percentageUse'] = 'Percentage of courses that use';
 $string['update'] = 'Update category list';
+$string['sortcategories'] = "Sort categories by name:";
+$string['sortcategoriesdesc'] = "It is used to configure whether you want to display the categories ordered by name or by ID.";
