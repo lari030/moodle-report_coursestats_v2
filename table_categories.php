@@ -34,7 +34,7 @@ echo $OUTPUT->header();
 defined('MOODLE_INTERNAL') || die();
 
 $sort = $customcatnames = get_config('report_coursestats_v2', 'sortcategoriesbyname');
-$sort = $short == 0 ? "cc.name" : "cc.id";
+$sort = $sort == 0 ? "cc.name" : "cc.id";
 
 $labels = [];
 $values = [];
