@@ -33,8 +33,8 @@ echo $OUTPUT->header();
 // Make sure this file is not accessed directly
 defined('MOODLE_INTERNAL') || die();
 
-$sort = $customcatnames = get_config('report_coursestats_v2', 'sortcategoriesbyname');
-$sort = $sort == 0 ? "cc.id": "cc.name" ;
+$sort = get_config('report_coursestats_v2', 'sortcategoriesbyname');
+$sort = $sort == 1 ? "cc.name": "cc.id" ;
 
 $labels = [];
 $values = [];
