@@ -27,7 +27,7 @@ $string['coursestatsv2_settings'] = '[Configurações] Estatísticas de Utiliza�
 $string['catnamechanger_text'] = 'Configuração de categorias e cursos:';
 $string['catnamechanger_desc'] = 'Se não quiser configurar categorias e cursos agora, você pode deixar este campo vazio.</br>Mais informações sobre possíveis configurações de categorias e cursos podem ser encontradas <a href="https://github.com/dired-ufla/moodle-report_coursestats_v2">clicando aqui</a>.';
 $string['category'] = 'Categoria';
-$string['coursescreated'] = 'Quantidade de cursos criados';
+$string['coursescreated'] = 'Quantidade de cursos criados e visíveis';
 $string['coursesused'] = 'Quantidade de cursos utilizados';
 $string['usagerate'] = 'Taxa de utilização';
 $string['categorydetails'] = 'Estatísticas de uso';
