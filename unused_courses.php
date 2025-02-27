@@ -69,7 +69,8 @@ $usage_table->head = [
 foreach ($used_courses as $course){
     $usage_table->data[] = [html_writer::link(
         new moodle_url('/course/view.php?id='.$course->courseid),
-        format_string($course->name)
+        format_string($course->name),
+        ['target' => '_blank']
     )];
 }
 
