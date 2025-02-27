@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2025022702;         // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2025022703;         // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2015051100;         // Requires this Moodle version (see https://docs.moodle.org/dev/Releases)
 $plugin->component = 'report_coursestats_v2';  // Full name of the plugin

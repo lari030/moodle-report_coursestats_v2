@@ -50,7 +50,8 @@ echo $OUTPUT->header();
 // Link to return to the previous page (index.php)
 $back = html_writer::link(new moodle_url('/report/coursestats_v2/table_categories.php'), get_string('backtocategories', 'report_coursestats_v2'));
 
-$sql = "SELECT * FROM {report_coursestatsv2_course} rcc 
+$sql = "SELECT rcc.courseid, rcc.name, c.fullname FROM {report_coursestatsv2_course} rcc 
+        JOIN {course} c ON rcc.courseid = c.id
         JOIN {report_coursestatsv2} rc ON rcc.courseid = rc.courseid
         WHERE rcc.coursestats_category_id = :categoryid";
 
@@ -69,7 +70,7 @@ $usage_table->head = [
 foreach ($used_courses as $course){
     $usage_table->data[] = [html_writer::link(
         new moodle_url('/course/view.php?id='.$course->courseid),
-        format_string($course->name),
+        format_string($course->name . ' - ' . $course->fullname),
         ['target' => '_blank']
     )];
 }
