@@ -49,5 +49,5 @@ $string['usagestats'] = 'Estatísticas de uso';
 $string['modulesusagepercentage'] = 'Porcentagem de uso dos módulos';
 $string['percentageUse'] = 'Porcentagem de cursos que utilizam';
 $string['update'] = 'Atualizar lista de categorias';
-$string['sortcategories'] = "Ordenar categorias pelo nome:";
-$string['sortcategoriesdesc'] = "Serve para configurar se deseja mostrar as categorias ordenadas pelo nome ou pelo ID.";
+$string['sortcategoriesbyname'] = 'Ordenar categorias pelo nome, na página principal do plugin';
+$string['sortcategoriesbyname_desc'] = 'Se habilitado, as categorias serão ordenadas por seus nomes na página principal do plugin';
