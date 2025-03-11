@@ -112,7 +112,12 @@ if (class_exists('core\chart_pie')) {
 
 // Second table: Modules   
 echo $OUTPUT->heading(get_string('modulesdetails', 'report_coursestats_v2'));
-echo $OUTPUT->paragraph(get_string('modulesdetailsinfo', 'report_coursestats_v2'));
+
+if (method_exists($OUTPUT,'paragraph')) {
+    echo $OUTPUT->paragraph(get_string('modulesdetailsinfo', 'report_coursestats_v2'));
+} else {
+    echo $OUTPUT->container(get_string('modulesdetailsinfo', 'report_coursestats_v2'));
+}
 
  $modules_table = new html_table();
  $modules_table->head = [
