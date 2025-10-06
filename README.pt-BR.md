@@ -1,4 +1,5 @@
 # Plugin CourseStats V2
+ [🇺🇸 Read in English](README.md)
 
 Esta é uma versão aprimorada do plugin [CourseStats](https://github.com/dired-ufla/coursestats). 
 
