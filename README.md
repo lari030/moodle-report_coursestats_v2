@@ -1,5 +1,5 @@
 # Plugin CourseStats V2
-[🇧🇷 Leia em Português](README.pt-BR.md) | [🇺🇸 Read in English](README.md)
+[🇧🇷 Leia em Português](README.pt-BR.md) 
 
 This is an improved version of the plugin [CourseStats](https://github.com/dired-ufla/coursestats). 
 
