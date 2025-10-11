@@ -24,7 +24,7 @@ This tutorial provides a step-by-step guide on how to use the "CourseStats" plug
 - When you make any changes to a course (such as submitting a forum topic or adding an activity), the usage rate for the category where the course is located will be automatically updated.
 - For example, when submitting a topic in the forum for the **1ef-mat** course, in the **EF - 1st Year** category, when you return to the plugin screen, you will see that the category's usage rate has increased to **50%** (Figure 3).
  
-  [New usage fee for the EF category - 1st Year](../images/tut2-3.png)
+  ![New usage fee for the EF category - 1st Year](../images/tut2-3.png)
 
 *Figure 3: New usage fee for the EF category - 1st Year.*
 
