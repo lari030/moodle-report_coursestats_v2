@@ -1,4 +1,4 @@
-[Voltar](../README.md)
+[Voltar](../README.pt-BR.md)
 
 # Utilizando o plugin pela primeira vez
 
