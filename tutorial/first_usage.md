@@ -1,4 +1,4 @@
-[Back](../README.pt-BR.md)
+[Back](../README.md)
 
 # Using the plugin for the first time
 
