@@ -17,6 +17,6 @@ Este tutorial apresenta o passo a passo do processo de instalação do plugin "C
 
 ## 3. Finalizando a instalação do plugin 
 - Após a instalação, dependendo da versão do Moodle, você será direcionado para a tela de configurações do plugin.
-- Nesse momento, você pode deixar o único campo dessa tela em branco e clicar em **Salvar**, pois a configuração detalhada das categorias e cursos será abordada em um [próximo tutorial](./first_usage.md).
+- Nesse momento, você pode deixar o único campo dessa tela em branco e clicar em **Salvar**, pois a configuração detalhada das categorias e cursos será abordada em um [próximo tutorial](./first_usage.pt-BR.md).
 - O processo de instalação foi concluído e o plugin está pronto para ser utilizado.
 
