@@ -41,4 +41,4 @@ Este tutorial apresenta o passo a passo para utilizar o plugin "CourseStats" pel
 
 ## 5. Finalizando o primeiro uso do plugin 
 - O plugin permite que você visualize a listagem de cursos criados, utilizados e não utilizados de cada categoria. Para isso, basta clicar na quantidade de cursos correspondente ao que deseja visualizar.
-- No [próximo tutorial](config_file_explanation.md), será explicado como funciona a anatomia de um arquivo de configuração do plugin. Isso permitirá que você adapte o plugin às necessidades específicas da sua instituição.
+- No [próximo tutorial](config_file_explanation.pt-BR.md), será explicado como funciona a anatomia de um arquivo de configuração do plugin. Isso permitirá que você adapte o plugin às necessidades específicas da sua instituição.
