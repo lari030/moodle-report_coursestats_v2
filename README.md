@@ -5,7 +5,7 @@ This is an improved version of the plugin [CourseStats](https://github.com/dired
 
 ## :hammer_and_wrench: Available Features
 * Displays the number and list of virtual rooms that are created, used, and unused, as well as the utilization rate of the rooms by category.
-* Presents the virtual room usage types, including forum, repository, and activity framework.
+* Presents the virtual rooms usage types, including forum, repository, and activity framework.
 * Allows the administrator to customize the categories and virtual rooms that will be considered by the plugin for calculating usage statistics.  
 
 
