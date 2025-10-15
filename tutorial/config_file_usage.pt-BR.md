@@ -42,7 +42,7 @@ EF - Anos Iniciais:
 
 ## 4. Trabalhando com muitos cursos por categoria
 
-- Conforme visto no tutorial [Utilizando o plugin pela primeira vez](first_usage.md), a categoria **Graduação** possui mais de 1.600 cursos. Para facilitar a análise, pode ser interessante dividir os cursos dessa categoria em subcategorias menores, obtendo estatísticas mais detalhadas.
+- Conforme visto no tutorial [Utilizando o plugin pela primeira vez](first_usage.pt-BR.md), a categoria **Graduação** possui mais de 1.600 cursos. Para facilitar a análise, pode ser interessante dividir os cursos dessa categoria em subcategorias menores, obtendo estatísticas mais detalhadas.
 
 - Como abordado no tutorial ["Conhecendo a anatomia de um arquivo de configuração"](config_file_explanation.pt-BR.md), isso pode ser feito utilizando os filtros de cursos disponíveis no plugin.
 
@@ -69,7 +69,7 @@ Administração:
 *Figura 3: Estatísticas de uso para os cursos de Ciência da Computação e Administração.*
 
 
-## 4. Considerações finais
+## 5. Considerações finais
 
 - O arquivo de configuração do plugin oferece uma personalização robusta, adaptando-se às necessidades específicas da instituição.
 
