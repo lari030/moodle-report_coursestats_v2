@@ -17,8 +17,8 @@ This tutorial presents a practical example of how to use the configuration file 
 *Figure 1: Identifying a category ID in Moodle.*
 
 - In the example shown in the video, the following IDs were identified:
-    - Category EF - 1st Year → ID: 16
-    - Category EF - 2nd Year → ID: 17
+    - Category **EF - 1st Year** → ID: 16
+    - Category **EF - 2nd Year** → ID: 17
       
 ## 3. Creating the Configuration File
 - Access the plugin through the **Reports** menu and click **[Settings] Course Usage Statistics V2**. 
@@ -33,7 +33,7 @@ EF - Early Years:
 17: * 
 ```
 
-- In this example, the category **EF - Early Years** was created, which includes all courses from the Moodle categories with IDs 16 and 17.
+- In this example, the category **EF - Early Years** was created, which includes all courses from the Moodle categories with IDs `16` and `17`.
 
 - After saving the file, return to the **Reports** menu and click **Course Usage Statistics V2**. The report will be updated according to the categories specified in the configuration file (Figure 2).
   
@@ -80,4 +80,4 @@ Administration:
     - Comparison between **humanities courses** and **exact sciences courses**;
     - Between others.
       
-This concludes the tutorial on installing, configuring, and using the "CourseStats" plugin. If you have any questions, we're here to help!
+- This concludes the tutorial on installing, configuring, and using the "CourseStats" plugin. If you have any questions, we're here to help!
