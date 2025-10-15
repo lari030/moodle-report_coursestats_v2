@@ -68,4 +68,4 @@ Geral:
 ```
 
 ## 5. Conclusão
-- No [próximo tutorial](config_file_usage.md), será apresentado um exemplo prático de utilização do arquivo de configuração em uma instalação do Moodle, possibilitando a visualização dos resultados dessa configuração.
+- No [próximo tutorial](config_file_usage.pt-BR.md), será apresentado um exemplo prático de utilização do arquivo de configuração em uma instalação do Moodle, possibilitando a visualização dos resultados dessa configuração.
