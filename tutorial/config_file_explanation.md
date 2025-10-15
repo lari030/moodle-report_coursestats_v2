@@ -20,8 +20,8 @@ This tutorial presents the anatomy of the "CourseStats" plugin configuration fil
 
 - Each entry in the course list contains:
 
-    - The Moodle category identifier where the course is located, followed by a colon (:); and
-    - The course short name(s), separated by a comma (,). The short name can be entered completely or just as a partial string, as will be explained later.
+    - The Moodle category identifier where the course is located, followed by a colon (`:`); and
+    - The course short name(s), separated by a comma (`,`). The short name can be entered completely or just as a partial string, as will be explained later.
 
 ## 3. Example of a configuration file
 
@@ -52,12 +52,12 @@ First Year - EF:
     - To filter all courses in a category that starts with **mat**, use: `mat%`.
     - To filter all courses in a category that contain the word **mat**, use: `%mat%`.
 
--Additionally, to add all courses in a given Moodle category, you can use the asterisk (*) symbol.
+-Additionally, to add all courses in a given Moodle category, you can use the asterisk (`*`) symbol.
 
 - Consider the example below. It consists of two categories: **Math** and **General**.
 
-    - The **Math** category includes all courses in Moodle category ID '1' that end with **mat** (e.g., **1ef-mat**, **2ef-mat**). 
-    - The **General** category includes all courses in Moodle category ID '1'.
+    - The **Math** category includes all courses in Moodle category ID `1` that end with **mat** (e.g., **1ef-mat**, **2ef-mat**). 
+    - The **General** category includes all courses in Moodle category ID `1`.
 
 ```
 Math:
