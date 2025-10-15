@@ -2,7 +2,7 @@
 
 # Using the plugin for the first time
 
-This tutorial provides a step-by-step guide on how to use the "CourseStats" plugin for the first time. The content is also available as a [video](https://www.youtube.com/watch?v=98T4p3GH8F8).
+This tutorial provides a step-by-step guide on how to use the "CourseStats" plugin for the first time. The content is also available in format [video](https://www.youtube.com/watch?v=98T4p3GH8F8).
 
 ## 1. Accessing the plugin area
 - After installing the plugin, go to the **Reports** tab and click on **Course Usage Statistics V2**. The plugin will load a list of categories registered in your Moodle.
@@ -14,7 +14,7 @@ This tutorial provides a step-by-step guide on how to use the "CourseStats" plug
 
 ## 2. Viewing Categories and Their Usage Rates
 - When you access the plugin, you will notice (Figure 1) that it displays the usage rates for all categories with the value **0 (zero)**. This happens because the plugin only detects course usage after its installation.
--By clicking on the number of existing courses within a category (for example, **EF - 1st Year**), you will be able to view the list of courses in that category (Figure 2).
+- By clicking on the number of existing courses within a category (for example, **EF - 1st Year**), you will be able to view the list of courses in that category (Figure 2).
 
 ![List of courses in a category](../images/tut2-2.png)
 
